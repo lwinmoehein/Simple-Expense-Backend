@@ -17,7 +17,7 @@ class GoogleAuthFacadesServiceProvider extends ServiceProvider
     {
         //
         App::bind('googleAuth',function() {
-            return new  GoogleAuth;
+            return new  GoogleAuth();
         });
     }
 

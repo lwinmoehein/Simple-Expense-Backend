@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\GoogleAuth;
-use Illuminate\Http\Request;
 
 class ApiV1AuthController extends Controller
 {
-    //
+    /**
+     * @OA\Get(
+     *     path="/api/test",
+     *     @OA\Response(response="200", description="An example endpoint")
+     * )
+     */
     public function test($token){
-        return response()->json(GoogleAuth::getUserInfo($token));
+//        return response()->json(GoogleAuth::getUserInfo($token));
+        return response()->json(GoogleAuthentication::getHello());
     }
 }

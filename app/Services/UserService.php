@@ -15,7 +15,7 @@ class  UserService {
            $googleUser = \GoogleAuthentication::getUserInfo($googleIdToken);
 
            if($googleUser){
-               $user = User::create([
+               $user = User::updateOrCreate([
                    "google_name"=>$googleUser['name'],
                    "google_user_id"=>$googleUser['sub'],
                    "google_email"=>$googleUser['email'],

@@ -15,7 +15,7 @@ class AddGoogleUserIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger("google_user_id")->unique();
+            $table->string("google_user_id")->unique();
         });
     }
 

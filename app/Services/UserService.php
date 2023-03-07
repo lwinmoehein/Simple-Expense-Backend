@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\UserRepository;
 
 class  UserService {
@@ -20,7 +21,7 @@ class  UserService {
                    "google_email"=>$googleUser['email'],
                    "google_picture"=>$googleUser['picture']
                ]);
-               return $user->createToken();
+              return $user->createToken("access_token");
            }
            return null;
    }

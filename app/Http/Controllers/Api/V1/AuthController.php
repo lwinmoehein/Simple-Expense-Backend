@@ -8,18 +8,29 @@ use App\Services\UserService;
 
 class AuthController extends ApiController
 {
-    /**
-     * @OA\Get(
-     *     path="/api/test/23",
-     *     @OA\Response(response="200", description="An example endpoint")
-     * )
-     */
+
     protected  $userService;
     public function __construct(UserMySQLRepository  $userRepository)
     {
         $this->userService = new UserService($userRepository);
     }
 
+    /**
+     * @OA\Get(
+     *     path="/api/get-access-token/{googleIdToken}",
+     *     summary="Get app token by using google id token",
+     *     @OA\Parameter(
+     *         description="use google id token from firebase authentication.",
+     *         in="path",
+     *         name="googleIdToken",
+     *         required=true,
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="returns a sanctum token if successful."
+     *     )
+     * )
+     */
     public function getAccessToken($googleIdToken){
 
         try{

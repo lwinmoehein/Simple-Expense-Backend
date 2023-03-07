@@ -5,11 +5,21 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/test/23": {
+        "/api/get-access-token/{googleIdToken}": {
             "get": {
+                "summary": "Get app token by using google id token",
+                "operationId": "0078d7ced2d5502f73d4c972a6700310",
+                "parameters": [
+                    {
+                        "name": "googleIdToken",
+                        "in": "path",
+                        "description": "use google id token from firebase authentication.",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "An example endpoint"
+                        "description": "returns a sanctum token if successful."
                     }
                 }
             }

@@ -17,7 +17,4 @@ class GoogleAuth {
            return null;
         }
     }
-    public function getHello(){
-        return "hello";
-    }
 }

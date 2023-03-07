@@ -5,9 +5,8 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/test": {
+        "/api/test/23": {
             "get": {
-                "operationId": "ad4af7eee3818a48f0657cf043a67651",
                 "responses": {
                     "200": {
                         "description": "An example endpoint"

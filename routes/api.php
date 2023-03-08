@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('/get-access-token/{googleIdToken}', [AuthController::class, 'getAccessToken']);
 Route::resource('categories', CategoryController::class);
+Route::resource('transactions', TransactionController::class);
 

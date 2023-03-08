@@ -19,7 +19,7 @@ class CategoryController extends ApiController
     /**
      * @OA\Post(
      *     path="/api/categories",
-     *     summary="Adds a new category",
+     *     summary="Add or update category",
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -49,6 +49,6 @@ class CategoryController extends ApiController
                "category"=>$category
            ]]);
 
-       return $this->respondError("Cannot create category.");
+       return $this->respondError("Cannot create or update category.");
     }
 }

@@ -11,7 +11,7 @@ class  TransactionService {
        $this->transactionRepository = $transactionRepository;
    }
 
-   public function create($attributes){
-
+   public function create($attributes):Transaction{
+       return $this->transactionRepository->create($attributes);
    }
 }

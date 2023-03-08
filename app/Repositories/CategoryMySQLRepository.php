@@ -7,6 +7,6 @@ class CategoryMySQLRepository implements CategoryRepository {
 
     public function create(array $attributes): Category
     {
-       return Category::create($attributes);
+       return Category::updateOrCreate(["unique_id"=>$attributes["unique_id"]],$attributes);
     }
 }

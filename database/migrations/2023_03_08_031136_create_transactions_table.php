@@ -14,8 +14,7 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
-            $table->string("unique_id")->unique();
+            $table->string("unique_id")->primary();
             $table->double("amount");
             $table->string("note")->nullable();
             $table->softDeletes();

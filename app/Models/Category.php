@@ -10,6 +10,10 @@ class Category extends Model
 {
     use HasFactory,SoftDeletes;
 
+    protected $primaryKey = 'unique_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'unique_id','name','photo_url'
     ];

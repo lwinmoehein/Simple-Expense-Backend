@@ -7,6 +7,6 @@ class TransactionMySQLRepository implements  TransactionRepository{
 
     public function create(array $attributes): Transaction
     {
-        return  Transaction::create($attributes);
+        return  Transaction::updateOrCreate(["unique_id"=>$attributes['unique_id']],$attributes);
     }
 }

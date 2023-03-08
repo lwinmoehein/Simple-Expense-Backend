@@ -22,6 +22,55 @@
                         "description": "returns a sanctum token if successful."
                     }
                 }
+            },
+            "post": {
+                "summary": "Get app token by using google id token",
+                "operationId": "583722b448b8e588aa9d175446a985a8",
+                "parameters": [
+                    {
+                        "name": "googleIdToken",
+                        "in": "path",
+                        "description": "use google id token from firebase authentication.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "returns a sanctum token if successful."
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "post": {
+                "summary": "Adds a new category",
+                "operationId": "e0210673ee95266563e9a973956194a1",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "unique_id": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "unique_id": "a3fb6",
+                                    "name": "Food"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
             }
         }
     }

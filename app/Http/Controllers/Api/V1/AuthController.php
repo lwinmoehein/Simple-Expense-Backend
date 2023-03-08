@@ -31,13 +31,19 @@ class AuthController extends ApiController
      * )
      */
     public function getAccessToken($googleIdToken){
+        if(!$googleIdToken)
+            return $this->respondUnAuthenticated();
 
         try{
             $token = $this->userService->getToken($googleIdToken);
             if($token)
-                return $this->respondWithSuccess(["token"=>$token]);
+                return $this->respondWithSuccess([
+                    "data"=>[
+                        "token"=>$token->plainTextToken
+                    ]
+                ]);
         }catch (\Exception $e){
-          return $this->respondNotFound("Invalid google id token.");
+          return $this->respondUnAuthenticated();
         }
 
         return $this->respondUnAuthenticated();

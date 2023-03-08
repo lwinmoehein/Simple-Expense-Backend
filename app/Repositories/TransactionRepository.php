@@ -7,5 +7,6 @@ interface TransactionRepository
 {
     public function create(array $attributes): Transaction;
     public function getAll();
+    public function delete($id);
     public function getAllDeleted();
 }

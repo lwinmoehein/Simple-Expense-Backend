@@ -19,4 +19,8 @@ class TransactionMySQLRepository implements  TransactionRepository{
     {
        return Transaction::onlyTrashed()->get();
     }
+    public function delete($id)
+    {
+        return  Transaction::where('unique_id',$id)->delete();
+    }
 }

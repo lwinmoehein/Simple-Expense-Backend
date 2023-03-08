@@ -31,4 +31,11 @@ class  TransactionService {
     public function deletedIds(){
         return $this->transactionRepository->getAllDeleted()->pluck('unique_id');
     }
+    public function delete($id){
+        $deletedTransactionCount = $this->transactionRepository->delete($id);
+
+        if($deletedTransactionCount>0) return true;
+
+        return false;
+    }
 }

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 
-use App\Http\Requests\StoreCategory;
 use App\Http\Requests\StoreTransaction;
 use App\Repositories\CategoryRepository;
-use App\Models\Transaction;
 use App\Repositories\TransactionRepository;
 use App\Services\TransactionService;
 
@@ -45,5 +43,12 @@ class TransactionController extends ApiController
             ]]);
 
         return $this->respondError("Cannot get transactions.");
+    }
+    public function destroy($id){
+        $isDeleteSuccess = $this->transactionService->delete($id);
+        if($isDeleteSuccess)
+            return $this->respondNoContent();
+
+        return $this->respondError("Cannot delete transaction.");
     }
 }

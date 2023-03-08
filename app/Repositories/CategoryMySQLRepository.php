@@ -15,8 +15,14 @@ class CategoryMySQLRepository implements CategoryRepository {
         return Category::all();
     }
 
+
     public function find($id)
     {
         return Category::find($id);
+    }
+
+    public function delete($id)
+    {
+      return  Category::where('unique_id',$id)->delete();
     }
 }

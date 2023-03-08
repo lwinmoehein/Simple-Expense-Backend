@@ -26,6 +26,7 @@ class StoreTransaction extends FormRequest
         return [
             //
             'unique_id'=>'string|required',
+            'category_id'=>'string|required',
             'amount'=>'integer|required',
             'note'=>'string'
         ];

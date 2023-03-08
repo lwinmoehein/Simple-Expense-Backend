@@ -15,6 +15,10 @@ class Transaction extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'unique_id','amount','note'
+        'unique_id','amount','note','category_id'
     ];
+
+    public function category(){
+        return $this->belongsTo(Category::class,"category_id");
+    }
 }

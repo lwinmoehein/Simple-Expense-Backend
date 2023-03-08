@@ -9,4 +9,14 @@ class TransactionMySQLRepository implements  TransactionRepository{
     {
         return  Transaction::updateOrCreate(["unique_id"=>$attributes['unique_id']],$attributes);
     }
+
+    public function getAll()
+    {
+        return Transaction::all();
+    }
+
+    public function getAllDeleted()
+    {
+       return Transaction::onlyTrashed()->get();
+    }
 }

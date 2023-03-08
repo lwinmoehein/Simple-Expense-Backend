@@ -22,7 +22,14 @@ use App\Http\Controllers\Api\V1\AuthController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/get-access-token/{googleIdToken}', [AuthController::class, 'getAccessToken']);
-Route::resource('categories', CategoryController::class);
-Route::resource('transactions', TransactionController::class);
 
+Route::middleware(['auth:api'])->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::resource('transactions', TransactionController::class);
+    Route::get('deleted-transaction-ids', [TransactionController::class,'deletedTransactions']);
+});
+Route::get('unauthenticated',function(){
+    return response()->json(["error"=>"You are not allowed to access this."],403);
+})->name('unauthenticated');
+
+Route::get('/get-access-token/{googleIdToken}', [AuthController::class, 'getAccessToken']);

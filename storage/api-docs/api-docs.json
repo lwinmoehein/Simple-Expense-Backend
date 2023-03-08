@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "X Money Controller API",
-        "version": "1.0.0"
+        "title": "My API",
+        "version": "0.1"
     },
     "paths": {
         "/api/get-access-token/{googleIdToken}": {
@@ -53,7 +53,12 @@
                     "200": {
                         "description": "OK"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/transactions": {
@@ -92,5 +97,26 @@
                 }
             }
         }
-    }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth endpoints"
+        },
+        {
+            "name": "Users",
+            "description": "Users endpoints"
+        }
+    ]
 }

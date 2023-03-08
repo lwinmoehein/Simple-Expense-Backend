@@ -14,42 +14,11 @@ class TransactionController extends ApiController
 {
 
     protected  $transactionService;
-    public function __construct(TransactionRepository  $transactionRepository)
+    public function __construct(TransactionRepository  $transactionRepository,CategoryRepository $categoryRepository)
     {
-        $this->transactionService = new TransactionService($transactionRepository);
+        $this->transactionService = new TransactionService($transactionRepository,$categoryRepository);
     }
 
-
-    /**
-     * @OA\Post(
-     *     path="/api/transactions",
-     *     summary="Add or update transaction",
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="unique_id",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="amount",
-     *                     type="integer"
-     *                 ),
-     *                  @OA\Property(
-     *                     property="note",
-     *                     type="string"
-     *                 ),
-     *                 example={"unique_id": "a3fb6", "amount": 100,"note":"hello"}
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK"
-     *     )
-     * )
-     */
     public function store(StoreTransaction $request){
         $transaction = $this->transactionService->create($request->validated());
         if($transaction)
@@ -58,5 +27,23 @@ class TransactionController extends ApiController
             ]]);
 
         return $this->respondError("Cannot create or update transaction.");
+    }
+    public function index(){
+        $transactions = $this->transactionService->all();
+        if($transactions)
+            return $this->respondWithSuccess(["data"=>[
+                "transactions"=>$transactions
+            ]]);
+
+        return $this->respondError("Cannot get transactions.");
+    }
+    public function deletedTransactions(){
+        $transactionIds = $this->transactionService->deletedIds();
+        if($transactionIds)
+            return $this->respondWithSuccess(["data"=>[
+                "deleted_transaction_ids"=>$transactionIds
+            ]]);
+
+        return $this->respondError("Cannot get transactions.");
     }
 }

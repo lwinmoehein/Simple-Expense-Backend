@@ -14,22 +14,6 @@ class AuthController extends ApiController
         $this->userService = new UserService($userRepository);
     }
 
-    /**
-     * @OA\Get(
-     *     path="/api/get-access-token/{googleIdToken}",
-     *     summary="Get app token by using google id token",
-     *     @OA\Parameter(
-     *         description="use google id token from firebase authentication.",
-     *         in="path",
-     *         name="googleIdToken",
-     *         required=true,
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="returns a sanctum token if successful."
-     *     )
-     * )
-     */
     public function getAccessToken($googleIdToken){
         if(!$googleIdToken)
             return $this->respondUnAuthenticated();

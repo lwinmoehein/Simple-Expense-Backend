@@ -9,4 +9,14 @@ class CategoryMySQLRepository implements CategoryRepository {
     {
        return Category::updateOrCreate(["unique_id"=>$attributes["unique_id"]],$attributes);
     }
+
+    public function getAll()
+    {
+        return Category::all();
+    }
+
+    public function find($id)
+    {
+        return Category::find($id);
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCategory;
 use App\Repositories\CategoryRepository;
 use App\Services\CategoryService;
 
+
 class CategoryController extends ApiController
 {
 
@@ -16,32 +17,7 @@ class CategoryController extends ApiController
         $this->categoryService = new CategoryService($categoryRepository);
     }
 
-    /**
-     * @OA\Post(
-     *     path="/api/categories",
-     *     summary="Add or update category",
-     *     @OA\RequestBody(
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(
-     *                     property="unique_id",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string"
-     *                 ),
-     *                 example={"unique_id": "a3fb6", "name": "Food"}
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK"
-     *     )
-     * )
-     */
+
     public function store(StoreCategory $request){
        $category = $this->categoryService->create($request->validated());
        if($category)

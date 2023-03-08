@@ -15,8 +15,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->string("unique_id")->primary();
+            $table->string("category_id");
             $table->double("amount");
             $table->string("note")->nullable();
+            $table->foreign('category_id')->references('unique_id')->on('categories')->onDelete("cascade")->onUpdate("cascade");
             $table->softDeletes();
             $table->timestamps();
         });

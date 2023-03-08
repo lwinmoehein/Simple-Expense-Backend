@@ -17,4 +17,8 @@ class Category extends Model
     protected $fillable = [
         'unique_id','name','photo_url'
     ];
+
+    public function transactions(){
+        return $this->hasMany(Transaction::class,"category_id");
+    }
 }

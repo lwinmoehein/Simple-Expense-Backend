@@ -20,7 +20,6 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->register(\L5Swagger\L5SwaggerServiceProvider::class);
         $this->app->bind(UserRepository::class, UserMySQLRepository::class);
         $this->app->bind(CategoryRepository::class, CategoryMySQLRepository::class);
         $this->app->bind(TransactionRepository::class, TransactionMySQLRepository::class);

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Repositories\UserMySQLRepository;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 
@@ -10,7 +9,7 @@ class AuthController extends ApiController
 {
 
     protected  $userService;
-    public function __construct(UserMySQLRepository  $userRepository)
+    public function __construct(UserRepository  $userRepository)
     {
         $this->userService = new UserService($userRepository);
     }

@@ -42,7 +42,7 @@ class TransactionController extends ApiController
                 "deleted_transaction_ids"=>$transactionIds
             ]]);
 
-        return $this->respondError("Cannot get transactions.");
+        return $this->respondError("Cannot get deleted transactions.");
     }
     public function destroy($id){
         $isDeleteSuccess = $this->transactionService->delete($id);

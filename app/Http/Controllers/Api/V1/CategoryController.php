@@ -27,6 +27,16 @@ class CategoryController extends ApiController
 
        return $this->respondError("Cannot create or update category.");
     }
+    public function deletedCategories(){
+        $transactionIds = $this->categoryService->deletedIds();
+        if($transactionIds)
+            return $this->respondWithSuccess(["data"=>[
+                "deleted_category_ids"=>$transactionIds
+            ]]);
+
+        return $this->respondError("Cannot get deleted categories.");
+    }
+
     public function destroy($id){
         $isDeleteSuccess = $this->categoryService->delete($id);
         if($isDeleteSuccess)

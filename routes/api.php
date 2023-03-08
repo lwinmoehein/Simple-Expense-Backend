@@ -27,6 +27,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('transactions', TransactionController::class);
     Route::get('deleted-transaction-ids', [TransactionController::class,'deletedTransactions']);
+    Route::get('deleted-category-ids', [CategoryController::class,'deletedCategories']);
+
 });
 Route::get('unauthenticated',function(){
     return response()->json(["error"=>"You are not allowed to access this."],403);

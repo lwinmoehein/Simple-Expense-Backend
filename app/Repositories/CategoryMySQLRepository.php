@@ -20,6 +20,10 @@ class CategoryMySQLRepository implements CategoryRepository {
     {
         return Category::find($id);
     }
+    public function getAllDeleted()
+    {
+        return Category::onlyTrashed()->get();
+    }
 
     public function delete($id)
     {

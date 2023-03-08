@@ -15,6 +15,10 @@ class  CategoryService {
    public function create($attributes):Category{
        return $this->categoryRepository->create($attributes);
    }
+    public function deletedIds(){
+        return $this->categoryRepository->getAllDeleted()->pluck('unique_id');
+    }
+
    public function delete($id){
        $deletedCategoryCount = $this->categoryRepository->delete($id);
        if($deletedCategoryCount>0){

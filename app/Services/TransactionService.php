@@ -20,9 +20,10 @@ class  TransactionService {
        if(!$category) return null;
 
        $transaction =  $this->transactionRepository->create($attributes);
-       $transaction->category_id = $category->unique_id;
-       $transaction->save();
-
+       if($transaction) {
+           $transaction->category_id = $category->unique_id;
+           $transaction->save();
+       }
        return $transaction;
    }
 

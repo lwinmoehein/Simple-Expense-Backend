@@ -10,7 +10,7 @@ class CategoryMySQLRepository implements CategoryRepository {
         try {
           return  Category::create($attributes);
         }catch (\Exception $exception){
-
+          return null;
         }
         return null;
     }

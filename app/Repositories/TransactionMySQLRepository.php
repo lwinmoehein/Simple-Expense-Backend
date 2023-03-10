@@ -5,9 +5,15 @@ use App\Models\Transaction;
 
 class TransactionMySQLRepository implements  TransactionRepository{
 
-    public function create(array $attributes): Transaction
+    public function create(array $attributes): ?Transaction
     {
-        return  Transaction::create($attributes);
+        try {
+            return  Transaction::create($attributes);
+        }catch (\Exception $e){
+            return null;
+        }
+
+        return null;
     }
 
     public function getAll()

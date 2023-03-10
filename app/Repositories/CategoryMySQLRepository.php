@@ -2,14 +2,17 @@
 namespace App\Repositories;
 
 use App\Models\Category;
-use App\Models\Transaction;
-use Illuminate\Support\Arr;
 
 class CategoryMySQLRepository implements CategoryRepository {
 
-    public function create(array $attributes): Category
+    public function create(array $attributes):?Category
     {
-       return Category::create($attributes);
+        try {
+          return  Category::create($attributes);
+        }catch (\Exception $exception){
+
+        }
+        return null;
     }
 
     public function getAll()

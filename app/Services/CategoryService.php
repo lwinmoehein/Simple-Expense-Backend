@@ -12,7 +12,7 @@ class  CategoryService {
        $this->categoryRepository = $categoryRepository;
    }
 
-   public function create($attributes):Category{
+   public function create($attributes):?Category{
        return $this->categoryRepository->create($attributes);
    }
     public function update(String $id,array $attributes):bool{

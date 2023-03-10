@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 
 use App\Http\Requests\StoreTransaction;
+use App\Http\Requests\UpdateCategory;
+use App\Http\Requests\UpdateTransaction;
+use App\Models\Category;
+use App\Models\Transaction;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TransactionRepository;
 use App\Services\TransactionService;
@@ -25,6 +29,16 @@ class TransactionController extends ApiController
             ]]);
 
         return $this->respondError("Cannot create or update transaction.");
+    }
+
+    public function update(Transaction $transaction,UpdateTransaction  $request){
+        $isUpdated = $this->transactionService->update($transaction->unique_id,$request->validated());
+        if($isUpdated)
+            return $this->respondWithSuccess(["data"=>[
+                "transaction"=>$transaction
+            ]]);
+
+        return $this->respondError("Cannot  update transaction.");
     }
     public function index(){
         $transactions = $this->transactionService->all();

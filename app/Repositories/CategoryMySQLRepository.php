@@ -2,13 +2,14 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use App\Models\Transaction;
+use Illuminate\Support\Arr;
 
 class CategoryMySQLRepository implements CategoryRepository {
 
-    public function create($attributes): Category
+    public function create(array $attributes): Category
     {
-        dd($attributes);
-       return Category::updateOrCreate(["unique_id"=>$attributes["unique_id"]],$attributes);
+       return Category::create($attributes);
     }
 
     public function getAll()
@@ -24,6 +25,16 @@ class CategoryMySQLRepository implements CategoryRepository {
     public function getAllDeleted()
     {
         return Category::onlyTrashed()->get();
+    }
+
+
+    public function update(string $id, array $attributes): bool
+    {
+        $numberOfUpdatedRows = Category::where("unique_id",$id)->update($attributes);
+
+        if($numberOfUpdatedRows>0) return  true;
+
+        return false;
     }
 
     public function delete($id)

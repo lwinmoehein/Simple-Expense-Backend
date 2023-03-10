@@ -25,6 +25,11 @@ class  TransactionService {
 
        return $transaction;
    }
+
+    public function update(String $id,array $attributes):bool{
+        return $this->transactionRepository->update($id,$attributes);
+    }
+
    public function all(){
        return $this->transactionRepository->getAll();
    }

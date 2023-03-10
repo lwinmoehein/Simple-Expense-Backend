@@ -5,9 +5,9 @@ use App\Models\Transaction;
 
 class TransactionMySQLRepository implements  TransactionRepository{
 
-    public function create($attributes): Transaction
+    public function create(array $attributes): Transaction
     {
-        return  Transaction::updateOrCreate(["unique_id"=>$attributes['unique_id']],$attributes);
+        return  Transaction::create($attributes);
     }
 
     public function getAll()
@@ -22,5 +22,14 @@ class TransactionMySQLRepository implements  TransactionRepository{
     public function delete($id)
     {
         return  Transaction::where('unique_id',$id)->delete();
+    }
+
+    public function update(string $id, array $attributes): bool
+    {
+       $numberOfUpdatedRows = Transaction::where("unique_id",$id)->update($attributes);
+
+       if($numberOfUpdatedRows>0) return  true;
+
+       return false;
     }
 }

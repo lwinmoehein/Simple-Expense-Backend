@@ -5,7 +5,7 @@ use App\Models\Category;
 
 interface CategoryRepository
 {
-    public function create(array $attributes): Category;
+    public function create($attributes): Category;
     public function getAll();
     public function delete($id);
     public function find($id);

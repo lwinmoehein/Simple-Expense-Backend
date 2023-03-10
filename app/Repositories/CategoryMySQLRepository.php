@@ -5,8 +5,9 @@ use App\Models\Category;
 
 class CategoryMySQLRepository implements CategoryRepository {
 
-    public function create(array $attributes): Category
+    public function create($attributes): Category
     {
+        dd($attributes);
        return Category::updateOrCreate(["unique_id"=>$attributes["unique_id"]],$attributes);
     }
 

@@ -11,6 +11,7 @@ class CategoryMySQLRepository implements CategoryRepository {
           return  Category::create($attributes);
         }catch (\Exception $exception){
           return null;
+
         }
         return null;
     }

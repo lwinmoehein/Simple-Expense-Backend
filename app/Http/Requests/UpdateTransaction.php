@@ -25,8 +25,8 @@ class UpdateTransaction extends FormRequest
     {
         return [
             //
-            'category_id'=>'string|required',
-            'amount'=>'integer|required',
+            'category_id'=>'string',
+            'amount'=>'integer',
             'note'=>'string'
         ];
     }

@@ -25,7 +25,7 @@ class UpdateCategory extends FormRequest
     {
         return [
             //
-            'name'=>'string|required'
+            'name'=>'string'
         ];
     }
 }

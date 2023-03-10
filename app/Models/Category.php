@@ -15,7 +15,7 @@ class Category extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'unique_id','name','photo_url'
+        'unique_id','name','photo_url','version'
     ];
 
     public function transactions(){

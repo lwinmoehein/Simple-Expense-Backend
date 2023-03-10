@@ -15,7 +15,7 @@ class Transaction extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'unique_id','amount','note','category_id'
+        'unique_id','amount','note','category_id','version'
     ];
 
     public function category(){

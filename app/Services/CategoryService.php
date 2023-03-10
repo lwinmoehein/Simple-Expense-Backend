@@ -16,7 +16,20 @@ class  CategoryService {
        return $this->categoryRepository->create($attributes);
    }
     public function update(String $id,array $attributes):bool{
-        return $this->categoryRepository->update($id,$attributes);
+        $category = Category::find($id);
+
+        if(!$category) return false;
+
+        $isSameValuesAsOriginal = count(array_intersect($category->toArray(),$attributes))===count($attributes);
+
+        if($isSameValuesAsOriginal) return false;
+
+        $isUpdated =  $this->categoryRepository->update($id,$attributes);
+        $versionIncreasedRows = Category::where('unique_id',$id)->increment('version',1);
+        if($isUpdated && $versionIncreasedRows>0){
+            return true;
+        }
+        return false;
     }
     public function deletedIds(){
         return $this->categoryRepository->getAllDeleted()->pluck('unique_id');

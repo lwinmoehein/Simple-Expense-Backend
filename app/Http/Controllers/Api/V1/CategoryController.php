@@ -32,9 +32,7 @@ class CategoryController extends ApiController
     public function update(Category $category,UpdateCategory  $request){
         $isUpdated = $this->categoryService->update($category->unique_id,$request->validated());
         if($isUpdated)
-            return $this->respondWithSuccess(["data"=>[
-                "category"=>$category
-            ]]);
+            return $this->respondNoContent();
 
         return $this->respondError("Cannot  update category.");
     }

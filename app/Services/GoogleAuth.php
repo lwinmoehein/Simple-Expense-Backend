@@ -4,11 +4,7 @@ namespace App\Services;
 use Google\Client;
 
 class GoogleAuth {
-//    protected  $clientId;
-//    public function __contruct(){
-//        $this->clientId = config('services.google_auth.client_id');
-//    }
-    public function getUserInfo($key){
+    public function getUserInfo($key):?array{
         $client = new Client(['client_id' =>config('services.google_auth.client_id') ]);
         $payload = $client->verifyIdToken($key);
         if ($payload) {

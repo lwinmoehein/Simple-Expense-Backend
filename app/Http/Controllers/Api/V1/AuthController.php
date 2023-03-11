@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\UpdateUser;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 
@@ -23,7 +24,7 @@ class AuthController extends ApiController
             if($token)
                 return $this->respondWithSuccess([
                     "data"=>[
-                        "token"=>$token->plainTextToken
+                        "token"=>$token
                     ]
                 ]);
         }catch (\Exception $e){
@@ -31,5 +32,13 @@ class AuthController extends ApiController
         }
 
         return $this->respondUnAuthenticated();
+    }
+    public function update(UpdateUser  $request){
+        $isUserUpdated = $this->userService->updateUser(auth()->id,$request->validated());
+
+        if($isUserUpdated)
+            return $this->respondNoContent();
+
+        return $this->respondError("Cannot get deleted categories.");
     }
 }

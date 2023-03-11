@@ -34,9 +34,7 @@ class TransactionController extends ApiController
     public function update(Transaction $transaction,UpdateTransaction  $request){
         $isUpdated = $this->transactionService->update($transaction->unique_id,$request->validated());
         if($isUpdated)
-            return $this->respondWithSuccess(["data"=>[
-                "transaction"=>$transaction
-            ]]);
+            return $this->respondNoContent();
 
         return $this->respondError("Cannot  update transaction.");
     }

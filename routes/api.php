@@ -30,7 +30,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('deleted-transaction-ids', [TransactionController::class,'deletedTransactions']);
     Route::get('deleted-category-ids', [CategoryController::class,'deletedCategories']);
 
-    Route::post('changed-categories', [ObjectVersionController::class,'getChangedCategories']);
+    Route::post('changed-objects', [ObjectVersionController::class,'getChangedObjects']);
 
 });
 Route::get('unauthenticated',function(){

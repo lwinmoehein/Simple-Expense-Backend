@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetChangedCategories extends FormRequest
+class GetChangeObjects extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class GetChangedCategories extends FormRequest
     {
         return [
             //
-            'category_versions'=>'array|required'
+            'table_name'=>'string|required',
+            'versions'=>'array|required'
         ];
     }
 }

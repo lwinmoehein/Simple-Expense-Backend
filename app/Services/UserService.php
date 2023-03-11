@@ -3,6 +3,8 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
 
 class  UserService {
     protected  $userRepository;
@@ -35,6 +37,17 @@ class  UserService {
    public function updateUser(string $id,array $attributes):bool{
        try{
           return $this->userRepository->update($id,$attributes);
+       }catch (\Exception $e){
+           return false;
+       }
+       return false;
+   }
+   public function updateProfileImage(int $userId,$requestImage):bool{
+       dd($requestImage);
+       try{
+           $requestImage->storeAs('public/images', $userId.'');
+           $imageUrl = url('storage/images/test.jpg');
+           return $this->updateUser($userId,["google_picture"=>$imageUrl]);
        }catch (\Exception $e){
            return false;
        }

@@ -32,6 +32,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::post('changed-objects', [ObjectVersionController::class,'getChangedObjects']);
     Route::patch('/users', [AuthController::class, 'update']);
+    Route::post('/users/profile', [AuthController::class, 'updateProfileImage']);
     Route::get('/users', [AuthController::class, 'get']);
 
 });

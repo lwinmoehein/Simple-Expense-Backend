@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\UpdateUser;
+use App\Http\Requests\UpdateUserImage;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 
@@ -39,7 +40,15 @@ class AuthController extends ApiController
         if($isUserUpdated)
             return $this->respondNoContent();
 
-        return $this->respondError("Cannot get deleted categories.");
+        return $this->respondError("Cannot update user.");
+    }
+    public function updateProfileImage(UpdateUserImage $request){
+        $isImageUpdated = $this->userService->updateProfileImage(auth()->user()->id,$request->google_picture,"test.jpg");
+
+        if($isImageUpdated)
+            return $this->respondNoContent();
+
+        return $this->respondError("Cannot update user image.");
     }
     public function get(){
         try{

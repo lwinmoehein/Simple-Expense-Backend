@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUser extends FormRequest
+class UpdateUserImage extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class UpdateUser extends FormRequest
     public function rules()
     {
         return [
-            'google_name'=>'string',
+            //
+            'google_picture'=>'image'
         ];
     }
 }

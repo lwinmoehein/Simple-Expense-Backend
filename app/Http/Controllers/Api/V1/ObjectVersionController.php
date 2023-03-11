@@ -23,11 +23,12 @@ class ObjectVersionController extends ApiController
     }
 
     public function getChangedObjects(GetChangeObjects $request){
+        $versions = array_merge(...$request->versions);
         try {
-            $newServerObjects = $this->objectService->getNewServerObjects($request->table_name,$request->versions);
-            $newClientObjectIds= $this->objectService->getNewObjectIds($request->table_name,$request->versions);
-            $toUpdateClientObjects = $this->objectService->getToUpdateClientObjects($request->table_name,$request->versions);
-            $toUpdateServerObjects = $this->objectService->getToUpdateServerObjects($request->table_name,$request->versions);
+            $newServerObjects = $this->objectService->getNewServerObjects($request->table_name,$versions);
+            $newClientObjectIds= $this->objectService->getNewObjectIds($request->table_name,$versions);
+            $toUpdateClientObjects = $this->objectService->getToUpdateClientObjects($request->table_name,$versions);
+            $toUpdateServerObjects = $this->objectService->getToUpdateServerObjects($request->table_name,$versions);
 
             return $this->respondWithSuccess(["data" => [
                 "new_server_objects" => $newServerObjects,

@@ -18,7 +18,7 @@ class CategoryMySQLRepository implements CategoryRepository {
 
     public function getAll()
     {
-        return Category::all();
+        return Category::withTrashed()->get();
     }
 
 

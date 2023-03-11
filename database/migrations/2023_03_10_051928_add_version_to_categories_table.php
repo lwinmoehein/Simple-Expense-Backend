@@ -15,7 +15,7 @@ class AddVersionToCategoriesTable extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             //
-            $table->integer("version")->default(0);
+            $table->integer("version")->default(1);
         });
     }
 

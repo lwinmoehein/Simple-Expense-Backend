@@ -15,7 +15,7 @@ class AddVersionToTransactionsTable extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
             //
-            $table->integer("version")->default(0);
+            $table->integer("version")->default(1);
         });
     }
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\Category;
 use App\Models\Transaction;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TransactionRepository;
@@ -28,7 +29,21 @@ class  TransactionService {
    }
 
     public function update(String $id,array $attributes):bool{
-        return $this->transactionRepository->update($id,$attributes);
+        $category = Transaction::find($id);
+
+        if(!$category) return false;
+
+        $isSameValuesAsOriginal = count(array_intersect($category->toArray(),$attributes))===count($attributes);
+
+        if($isSameValuesAsOriginal) return false;
+
+        $isUpdated = $this->transactionRepository->update($id,$attributes);
+
+        if($isUpdated){
+            Transaction::where('unique_id',$id)->increment('version',1);
+            return true;
+        }
+        return false;
     }
 
    public function all(){

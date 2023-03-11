@@ -31,6 +31,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('deleted-category-ids', [CategoryController::class,'deletedCategories']);
 
     Route::post('changed-objects', [ObjectVersionController::class,'getChangedObjects']);
+    Route::patch('/users', [AuthController::class, 'update']);
+    Route::get('/users', [AuthController::class, 'get']);
 
 });
 Route::get('unauthenticated',function(){

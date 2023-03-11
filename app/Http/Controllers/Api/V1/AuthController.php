@@ -34,11 +34,22 @@ class AuthController extends ApiController
         return $this->respondUnAuthenticated();
     }
     public function update(UpdateUser  $request){
-        $isUserUpdated = $this->userService->updateUser(auth()->id,$request->validated());
+        $isUserUpdated = $this->userService->updateUser(auth()->user()->id,$request->validated());
 
         if($isUserUpdated)
             return $this->respondNoContent();
 
         return $this->respondError("Cannot get deleted categories.");
+    }
+    public function get(){
+        try{
+                return $this->respondWithSuccess([
+                    "data"=>[
+                        "user"=>auth()->user()
+                    ]
+                ]);
+        }catch (\Exception $e){
+            return $this->respondError();
+        }
     }
 }

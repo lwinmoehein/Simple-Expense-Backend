@@ -35,11 +35,13 @@ class  ObjectService {
     {
         $allObjects = $this->getAllObjectsByTable($table_name)->toArray();
         $serverVersions = array_column($allObjects, 'unique_id');
-        $clientVersions = array_keys($versions);
+        $clientVersions = $versions;
+        $serverUniqueIds = array_column($allObjects,"unique_id");
 
-        return array_values(array_filter($clientVersions,function ($key) use ($serverVersions){
-            return !in_array($key,$serverVersions);
-        }));
+        $newClientVersions =  array_filter($clientVersions,function($version) use ($serverUniqueIds){
+            return !in_array($version["unique_id"],$serverUniqueIds);
+        });
+        return array_column($newClientVersions,"unique_id");
     }
     public function getToUpdateServerObjects($table_name,array $versions):Collection{
         $allObjects = $this->getAllObjectsByTable($table_name);

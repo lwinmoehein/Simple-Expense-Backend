@@ -7,6 +7,7 @@ use App\Http\Requests\GetChangeObjects;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TransactionRepository;
 use App\Services\ObjectService;
+use Illuminate\Support\Arr;
 
 
 class ObjectVersionController extends ApiController
@@ -23,7 +24,7 @@ class ObjectVersionController extends ApiController
     }
 
     public function getChangedObjects(GetChangeObjects $request){
-        $versions = array_merge(...$request->versions);
+        $versions = $request->versions;
         try {
             $newServerObjects = $this->objectService->getNewServerObjects($request->table_name,$versions);
             $newClientObjectIds= $this->objectService->getNewObjectIds($request->table_name,$versions);

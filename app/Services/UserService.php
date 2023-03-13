@@ -43,10 +43,10 @@ class  UserService {
        return false;
    }
    public function updateProfileImage(int $userId,$requestImage):bool{
-       dd($requestImage);
        try{
-           $requestImage->storeAs('public/images', $userId.'');
-           $imageUrl = url('storage/images/test.jpg');
+           $fileName =  $userId.'.'.$requestImage->extension();
+           $requestImage->storeAs('public/images', $fileName);
+           $imageUrl = url('storage/images/'.$fileName);
            return $this->updateUser($userId,["google_picture"=>$imageUrl]);
        }catch (\Exception $e){
            return false;

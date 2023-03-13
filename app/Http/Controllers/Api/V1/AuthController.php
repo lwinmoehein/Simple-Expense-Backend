@@ -43,7 +43,7 @@ class AuthController extends ApiController
         return $this->respondError("Cannot update user.");
     }
     public function updateProfileImage(UpdateUserImage $request){
-        $isImageUpdated = $this->userService->updateProfileImage(auth()->user()->id,$request->google_picture,"test.jpg");
+        $isImageUpdated = $this->userService->updateProfileImage(auth()->user()->id,$request->google_picture);
 
         if($isImageUpdated)
             return $this->respondNoContent();

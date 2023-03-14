@@ -26,7 +26,7 @@ class GetChangeObjects extends FormRequest
         return [
             //
             'table_name'=>'string|required',
-            'versions'=>'array|required'
+            'versions'=>'array'
         ];
     }
 }

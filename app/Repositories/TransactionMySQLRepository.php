@@ -18,7 +18,7 @@ class TransactionMySQLRepository implements  TransactionRepository{
 
     public function getAll()
     {
-        return Transaction::all();
+        return Transaction::withTrashed()->get();
     }
 
     public function getAllDeleted()

@@ -46,12 +46,12 @@ class ObjectVersionController extends ApiController
     }
 
     public function storeBatch(StoreBatchObjects $request){
-        try {
+//        try {
             $isObjectsStored = $this->objectService->storeBatchObjects($request->table_name,$request->objects);
             if($isObjectsStored) return $this->respondNoContent();
-        }catch (\Exception $e){
-            return $this->respondError("Cannot store objects.");
-        }
+//        }catch (\Exception $e){
+//            return $this->respondError("Cannot store objects.");
+//        }
 
         return $this->respondError("Cannot store objects.");
     }

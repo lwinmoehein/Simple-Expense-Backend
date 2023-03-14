@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 
 use App\Http\Requests\GetChangeObjects;
+use App\Http\Requests\StoreBatchObjects;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TransactionRepository;
 use App\Services\ObjectService;
@@ -42,5 +43,16 @@ class ObjectVersionController extends ApiController
         }
 
         return $this->respondError("Cannot get changed objects.");
+    }
+
+    public function storeBatch(StoreBatchObjects $request){
+        try {
+            $isObjectsStored = $this->objectService->storeBatchObjects($request->table_name,$request->objects);
+            if($isObjectsStored) return $this->respondNoContent();
+        }catch (\Exception $e){
+            return $this->respondError("Cannot store objects.");
+        }
+
+        return $this->respondError("Cannot store objects.");
     }
 }

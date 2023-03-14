@@ -24,6 +24,10 @@ class  ObjectService {
             return !isset($versions[$category->unique_id]);
         });
     }
+    public function storeBatchObjects(string $tableName,array $objects):bool{
+        return $this->storeObjectsByTableName($tableName,$objects);
+    }
+
     public function getToUpdateClientObjects($table_name,array $versions):Collection{
         $allObjects = $this->getAllObjectsByTable($table_name);
 
@@ -56,6 +60,14 @@ class  ObjectService {
                 return $this->transactionRepository->getAll();
             default:
                 return $this->categoryRepository->getAll();
+        }
+    }
+    public function storeObjectsByTableName($table_name,$objects){
+        switch ($table_name){
+            case "transactions":
+                return false;
+            default:
+                return $this->categoryRepository->batchCreate($objects);
         }
     }
 }

@@ -65,9 +65,9 @@ class  ObjectService {
     public function storeObjectsByTableName($table_name,$objects){
         switch ($table_name){
             case "transactions":
-                return false;
+                return $this->transactionRepository->batchUpdateOrCreate($objects);
             default:
-                return $this->categoryRepository->batchCreate($objects);
+                return $this->categoryRepository->batchUpdateOrCreate($objects);
         }
     }
 }

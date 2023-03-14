@@ -46,8 +46,8 @@ class CategoryMySQLRepository implements CategoryRepository {
       return  Category::where('unique_id',$id)->delete();
     }
 
-    public function batchCreate(array $categories): bool
+    public function batchUpdateOrCreate(array $categories): bool
     {
-       return Category::insert($categories);
+       return Category::upsert($categories,['unique_id']);
     }
 }

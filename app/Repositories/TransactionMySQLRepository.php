@@ -38,4 +38,9 @@ class TransactionMySQLRepository implements  TransactionRepository{
 
        return false;
     }
+
+    public function batchUpdateOrCreate(array $transactions): bool
+    {
+        return Transaction::upsert($transactions,["unique_id"]);
+    }
 }

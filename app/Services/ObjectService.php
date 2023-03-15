@@ -51,7 +51,12 @@ class  ObjectService {
         $allObjects = $this->getAllObjectsByTable($table_name);
 
         return $allObjects->filter(function ($category) use ($versions) {
-            return isset($versions[$category->unique_id]) && $category->version<$versions[$category->unique_id];
+            foreach ($versions as $v){
+              if($v["unique_id"]==$category->unique_id && $category->version<$v['version']){
+                  return true;
+              }
+            }
+            return false;
         });
     }
     public function getAllObjectsByTable($table_name){

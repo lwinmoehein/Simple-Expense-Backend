@@ -50,7 +50,7 @@ class  ObjectService {
     public function getToUpdateServerObjects($table_name,array $versions):Collection{
         $allObjects = $this->getAllObjectsByTable($table_name);
 
-        return $allObjects->filter(function ($category) use ($versions) {
+        $filteredObjects =  $allObjects->filter(function ($category) use ($versions) {
             foreach ($versions as $v){
               if($v["unique_id"]==$category->unique_id && $category->version<$v['version']){
                   return true;
@@ -58,6 +58,7 @@ class  ObjectService {
             }
             return false;
         });
+        return $filteredObjects->values();
     }
     public function getAllObjectsByTable($table_name){
         switch ($table_name){

@@ -13,9 +13,10 @@ class Category extends Model
     protected $primaryKey = 'unique_id';
     public $incrementing = false;
     protected $keyType = 'string';
+    protected $dates = ["deleted_at"];
 
     protected $fillable = [
-        'unique_id','name','photo_url','version','transaction_type'
+        'unique_id','name','photo_url','version','transaction_type','deleted_at','created_at'
     ];
 
     public function transactions(){

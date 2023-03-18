@@ -30,7 +30,9 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('deleted-transaction-ids', [TransactionController::class,'deletedTransactions']);
     Route::get('deleted-category-ids', [CategoryController::class,'deletedCategories']);
 
-    Route::post('changed-objects', [ObjectVersionController::class,'getChangedObjects']);
+    Route::post('categories/changes', [ObjectVersionController::class,'getChangedCategories']);
+    Route::post('transactions/changes', [ObjectVersionController::class,'getChangedTransactions']);
+
     Route::post('batch-objects', [ObjectVersionController::class,'storeBatch']);
 
     Route::patch('/users', [AuthController::class, 'update']);

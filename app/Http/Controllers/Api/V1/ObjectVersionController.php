@@ -23,14 +23,38 @@ class ObjectVersionController extends ApiController
     {
         $this->objectService = new ObjectService($categoryRepository,$transactionRepository);
     }
-
-    public function getChangedObjects(GetChangeObjects $request){
+    public function getChangedTransactions(GetChangeObjects $request){
         $versions = $request->versions;
+        $TABLE_NAME="transactions";
+
         try {
-            $newServerObjects = $this->objectService->getNewServerObjects($request->table_name,$versions);
-            $newClientObjectIds= $this->objectService->getNewObjectIds($request->table_name,$versions);
-            $toUpdateClientObjects = $this->objectService->getToUpdateClientObjects($request->table_name,$versions);
-            $toUpdateServerObjects = $this->objectService->getToUpdateServerObjects($request->table_name,$versions);
+            $newServerObjects = $this->objectService->getNewServerObjects($TABLE_NAME,$versions);
+            $newClientObjectIds= $this->objectService->getNewObjectIds($TABLE_NAME,$versions);
+            $toUpdateClientObjects = $this->objectService->getToUpdateClientObjects($TABLE_NAME,$versions);
+            $toUpdateServerObjects = $this->objectService->getToUpdateServerObjects($TABLE_NAME,$versions);
+
+            return $this->respondWithSuccess(["data" => [
+                "new_server_objects" => $newServerObjects,
+                "new_client_object_ids" => $newClientObjectIds,
+                "objects_to_update_client" => $toUpdateClientObjects,
+                "objects_to_update_server" => $toUpdateServerObjects
+            ]]);
+        }catch (\Exception $e){
+            return $this->respondError("Cannot get changed objects.");
+        }
+
+        return $this->respondError("Cannot get changed objects.");
+    }
+
+    public function getChangedCategories(GetChangeObjects $request){
+        $versions = $request->versions;
+        $TABLE_NAME="categories";
+
+        try {
+            $newServerObjects = $this->objectService->getNewServerObjects($TABLE_NAME,$versions);
+            $newClientObjectIds= $this->objectService->getNewObjectIds($TABLE_NAME,$versions);
+            $toUpdateClientObjects = $this->objectService->getToUpdateClientObjects($TABLE_NAME,$versions);
+            $toUpdateServerObjects = $this->objectService->getToUpdateServerObjects($TABLE_NAME,$versions);
 
             return $this->respondWithSuccess(["data" => [
                 "new_server_objects" => $newServerObjects,
@@ -46,12 +70,12 @@ class ObjectVersionController extends ApiController
     }
 
     public function storeBatch(StoreBatchObjects $request){
-//        try {
+        try {
             $isObjectsStored = $this->objectService->storeBatchObjects($request->table_name,$request->objects);
             if($isObjectsStored) return $this->respondNoContent();
-//        }catch (\Exception $e){
-//            return $this->respondError("Cannot store objects.");
-//        }
+        }catch (\Exception $e){
+            return $this->respondError("Cannot store objects.");
+        }
 
         return $this->respondError("Cannot store objects.");
     }

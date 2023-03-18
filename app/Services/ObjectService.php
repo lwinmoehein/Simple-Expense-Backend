@@ -20,9 +20,14 @@ class  ObjectService {
     public function getNewServerObjects($table_name,array $versions):Collection{
         $allObjects = $this->getAllObjectsByTable($table_name);
 
+
         return $allObjects->filter(function ($category) use ($versions) {
-            return !isset($versions[$category->unique_id]);
+            if(in_array($category->unique_id,array_column($versions,"unique_id"))){
+                return false;
+            }
+            return true;
         });
+
     }
     public function storeBatchObjects(string $tableName,array $objects):bool{
         return $this->storeObjectsByTableName($tableName,$objects);

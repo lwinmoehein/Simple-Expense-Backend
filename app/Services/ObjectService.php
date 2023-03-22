@@ -40,7 +40,7 @@ class  ObjectService {
 
         return $allObjects->filter(function ($category) use ($versions) {
             foreach ($versions as $v){
-                if($v["unique_id"]==$category->unique_id && ($category->version==$v['version'] && $category->updated_at!=Carbon::parse($v['updated_at'])) || $category->version>$v['version']){
+                if($v["unique_id"]==$category->unique_id && ($category->version==$v['version'] && Carbon::parse($category->updated_at)!=Carbon::parse($v['updated_at'])) || $category->version>$v['version']){
                     return true;
                 }
             }

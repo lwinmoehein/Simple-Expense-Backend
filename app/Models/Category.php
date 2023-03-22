@@ -13,7 +13,12 @@ class Category extends Model
     protected $primaryKey = 'unique_id';
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $dates = ["deleted_at"];
+
+    protected $casts = [
+        'deleted_at' => 'datetime:Y-m-d H:m:s',
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:Y-m-d H:m:s'
+    ];
 
     protected $fillable = [
         'unique_id','name','photo_url','version','transaction_type','deleted_at','created_at','updated_at'

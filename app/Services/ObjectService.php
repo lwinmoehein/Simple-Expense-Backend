@@ -28,7 +28,7 @@ class  ObjectService {
                 return false;
             }
             return true;
-        });
+        })->values();
 
     }
     public function storeBatchObjects(string $tableName,array $objects):bool{
@@ -45,7 +45,7 @@ class  ObjectService {
                 }
             }
             return false;
-        });
+        })->values();
     }
     public function getNewObjectIds($table_name,array $versions): array
     {

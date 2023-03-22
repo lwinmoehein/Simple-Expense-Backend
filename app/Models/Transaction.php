@@ -14,6 +14,12 @@ class Transaction extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
+    protected $casts = [
+        'deleted_at' => 'datetime:Y-m-d H:m:s',
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:Y-m-d H:m:s'
+    ];
+
     protected $fillable = [
         'unique_id','amount','note','category_id','version','type','created_at','updated_at'
     ];

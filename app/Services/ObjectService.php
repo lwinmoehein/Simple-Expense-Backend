@@ -4,6 +4,8 @@ namespace App\Services;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TransactionRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
+
 
 class  ObjectService {
     protected  $categoryRepository;
@@ -37,7 +39,12 @@ class  ObjectService {
         $allObjects = $this->getAllObjectsByTable($table_name);
 
         return $allObjects->filter(function ($category) use ($versions) {
-            return isset($versions[$category->unique_id]) && $category->version>=$versions[$category->unique_id];
+            foreach ($versions as $v){
+                if($v["unique_id"]==$category->unique_id && ($category->version==$v['version'] && $category->updated_at!=Carbon::parse($v['updated_at'])) || $category->version>$v['version']){
+                    return true;
+                }
+            }
+            return false;
         });
     }
     public function getNewObjectIds($table_name,array $versions): array

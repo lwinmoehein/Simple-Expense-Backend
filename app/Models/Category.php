@@ -16,7 +16,7 @@ class Category extends Model
     protected $dates = ["deleted_at"];
 
     protected $fillable = [
-        'unique_id','name','photo_url','version','transaction_type','deleted_at','created_at'
+        'unique_id','name','photo_url','version','transaction_type','deleted_at','created_at','updated_at'
     ];
 
     public function transactions(){

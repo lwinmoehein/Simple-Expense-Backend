@@ -21,10 +21,14 @@ class Category extends Model
     ];
 
     protected $fillable = [
-        'unique_id','name','photo_url','version','transaction_type','deleted_at','created_at','updated_at'
+        'unique_id','name','photo_url','version','transaction_type','deleted_at','created_at','updated_at','user_id'
     ];
 
     public function transactions(){
         return $this->hasMany(Transaction::class,"category_id");
+    }
+
+    public function User(){
+        return $this->belongsTo(User::class,"user_id","google_user_id");
     }
 }

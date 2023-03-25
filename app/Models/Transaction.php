@@ -21,10 +21,13 @@ class Transaction extends Model
     ];
 
     protected $fillable = [
-        'unique_id','amount','note','category_id','version','type','created_at','updated_at'
+        'unique_id','amount','note','category_id','version','type','created_at','updated_at','user_id'
     ];
 
     public function category(){
         return $this->belongsTo(Category::class,"category_id");
+    }
+    public function User(){
+        return $this->belongsTo(User::class,"user_id","google_user_id");
     }
 }

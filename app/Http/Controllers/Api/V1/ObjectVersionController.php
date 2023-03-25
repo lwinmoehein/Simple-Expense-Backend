@@ -70,7 +70,12 @@ class ObjectVersionController extends ApiController
     }
 
     public function storeBatch(StoreBatchObjects $request){
-            $isObjectsStored = $this->objectService->storeBatchObjects($request->table_name,$request->objects);
+            $objects =  array_map(function($obj){
+                $obj['user_id'] = auth()->user()->google_user_id;
+                return $obj;
+            },$request->objects);
+
+            $isObjectsStored = $this->objectService->storeBatchObjects($request->table_name,$objects);
             if($isObjectsStored) return $this->respondNoContent();
 //        }catch (\Exception $e){
 //            return $this->respondError("Cannot store objects.");

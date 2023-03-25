@@ -18,12 +18,12 @@ class TransactionMySQLRepository implements  TransactionRepository{
 
     public function getAll()
     {
-        return Transaction::withTrashed()->get();
+        return Transaction::withTrashed()->where("user_id",auth()->user()->google_user_id)->get();
     }
 
     public function getAllDeleted()
     {
-       return Transaction::onlyTrashed()->get();
+       return Transaction::onlyTrashed()->where("user_id",auth()->user()->google_user_id)->get();
     }
     public function delete($id)
     {

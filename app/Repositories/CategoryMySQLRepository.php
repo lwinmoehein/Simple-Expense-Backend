@@ -18,7 +18,7 @@ class CategoryMySQLRepository implements CategoryRepository {
 
     public function getAll()
     {
-        return Category::withTrashed()->get();
+        return Category::withTrashed()->where("user_id",auth()->user()->google_user_id)->get();
     }
 
 
@@ -28,7 +28,7 @@ class CategoryMySQLRepository implements CategoryRepository {
     }
     public function getAllDeleted()
     {
-        return Category::onlyTrashed()->get();
+        return Category::onlyTrashed()->where("user_id",auth()->user()->google_user_id)->get();
     }
 
 

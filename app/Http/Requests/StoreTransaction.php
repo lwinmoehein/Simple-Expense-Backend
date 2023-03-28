@@ -28,7 +28,7 @@ class StoreTransaction extends FormRequest
             'unique_id'=>'string|required',
             'category_id'=>'string|required',
             'amount'=>'integer|required',
-            'note'=>'string'
+            'note'=>'string|max:100'
         ];
     }
 }

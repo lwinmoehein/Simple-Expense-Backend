@@ -26,7 +26,7 @@ class StoreCategory extends FormRequest
         return [
             //
             'unique_id'=>'string|required',
-            'name'=>'string|required',
+            'name'=>'string|required|max:40',
         ];
     }
 }

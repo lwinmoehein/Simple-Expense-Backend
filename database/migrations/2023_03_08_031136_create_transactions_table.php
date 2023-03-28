@@ -17,7 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->string("unique_id")->primary();
             $table->string("category_id")->nullable();
             $table->double("amount");
-            $table->string("note")->nullable();
+            $table->string("note",100)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\TransactionMonthExport;
+use App\Exports\TransactionTotalExport;
 use App\Http\Requests\GenerateReport;
 use App\Models\Transaction;
 use App\Repositories\TransactionRepository;

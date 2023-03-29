@@ -2,7 +2,10 @@
 namespace App\Services;
 
 use App\Exports\TransactionMonthExport;
+use App\Exports\TransactionTotalExport;
+use App\Exports\TransactionYearExport;
 use App\Repositories\TransactionRepository;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Excel;
 use Illuminate\Support\Str;
 
@@ -16,15 +19,15 @@ class ReportService {
     }
 
     public function generateExcelFile($type,$month,$year){
-        $fileName ="lwin_transactions_".\Carbon\Carbon::now()->timestamp.".xlsx";
+        $fileName ="lwin_".$type."_transactions_". Carbon::now()->timestamp.".xlsx";
 
          switch ($type){
             case "monthly":
                return (new TransactionMonthExport($month,$year))->download($fileName);
             case "yearly":
-               return $this->generateYearlyExcelFile($month);
+               return (new TransactionYearExport($year))->download($fileName);
             default:
-                return $this->generateTotalExcelFile();
+                return (new TransactionTotalExport())->download($fileName);
         }
     }
 

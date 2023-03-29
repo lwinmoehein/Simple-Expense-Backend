@@ -16,9 +16,9 @@ class ReportController extends Controller
     private $reportService;
 
 
-    public function __construct(Excel $excel,TransactionRepository  $transactionRepository)
+    public function __construct(Excel $excel)
     {
-        $this->reportService = new ReportService($excel,$transactionRepository);
+        $this->reportService = new ReportService($excel);
     }
 
     public function exportTransaction(GenerateReport  $request){

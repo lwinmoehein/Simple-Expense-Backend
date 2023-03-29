@@ -10,6 +10,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class TransactionTotalExport implements FromQuery,ShouldAutoSize,WithHeadings,WithStyles
 {
+
     use Exportable,TransactionExportTrait;
 
 
@@ -31,10 +32,10 @@ class TransactionTotalExport implements FromQuery,ShouldAutoSize,WithHeadings,Wi
     public function styles(Worksheet $sheet)
     {
         return [
-            'A1' => ['font' => ['bold' => true]],
-            'B1' => ['font' => ['bold' => true]],
-            'C1' => ['font' => ['bold' => true]],
-            'D1' => ['font' => ['bold' => true]]
+            'A1' => ['font' => ['bold' => true,'name'=>'Padauk-Regular']],
+            'B1' => ['font' => ['bold' => true,'name'=>'Padauk-Regular']],
+            'C1' => ['font' => ['bold' => true,'name'=>'Padauk-Regular']],
+            'D1' => ['font' => ['bold' => true,'name'=>'Padauk-Regular']]
         ];
     }
 }

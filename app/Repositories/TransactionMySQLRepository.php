@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Transaction;
+use Illuminate\Database\Eloquent\Collection;
 
 class TransactionMySQLRepository implements  TransactionRepository{
 
@@ -43,4 +44,5 @@ class TransactionMySQLRepository implements  TransactionRepository{
     {
         return Transaction::upsert($transactions,["unique_id"]);
     }
+
 }

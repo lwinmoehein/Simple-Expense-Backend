@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ObjectVersionController;
 use App\Http\Controllers\Api\V1\TransactionController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,9 +40,11 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/users/profile', [AuthController::class, 'updateProfileImage']);
     Route::get('/users', [AuthController::class, 'get']);
 
+
 });
 Route::get('unauthenticated',function(){
     return response()->json(["error"=>"You are not allowed to access this."],403);
 })->name('unauthenticated');
 
 Route::get('/get-access-token/{googleIdToken}', [AuthController::class, 'getAccessToken']);
+Route::post('/reporting', [ReportController::class, 'exportTransaction']);

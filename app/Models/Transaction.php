@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
-class Transaction extends Model
+class Transaction extends Model implements FromCollection
 {
     use HasFactory,SoftDeletes;
 
@@ -29,5 +30,9 @@ class Transaction extends Model
     }
     public function User(){
         return $this->belongsTo(User::class,"user_id","google_user_id");
+    }
+    public function collection()
+    {
+        return User::all();
     }
 }

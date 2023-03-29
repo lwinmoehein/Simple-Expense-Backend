@@ -4,8 +4,7 @@ namespace App\Services;
 use App\Exports\TransactionMonthExport;
 use App\Repositories\TransactionRepository;
 use Maatwebsite\Excel\Excel;
-
-
+use Illuminate\Support\Str;
 
 class ReportService {
     private $excel ;
@@ -17,9 +16,11 @@ class ReportService {
     }
 
     public function generateExcelFile($type,$month,$year){
-        switch ($type){
+        $fileName ="lwin_transactions_".\Carbon\Carbon::now()->timestamp.".xlsx";
+
+         switch ($type){
             case "monthly":
-               return (new TransactionMonthExport($month,$year))->download('transactions.xlsx');
+               return (new TransactionMonthExport($month,$year))->download($fileName);
             case "yearly":
                return $this->generateYearlyExcelFile($month);
             default:

@@ -8,22 +8,19 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class TransactionMonthExport implements FromQuery,ShouldAutoSize,WithHeadings,WithStyles
+class TransactionYearExport implements FromQuery,ShouldAutoSize,WithHeadings,WithStyles
 {
     use Exportable,TransactionExportTrait;
 
-    protected $month;
     protected $year;
 
-    public function __construct(int $month,int $year){
-        $this->month = $month;
+    public function __construct(int $year){
         $this->year = $year;
     }
 
     public function query()
     {
         return $this->getBaseQuery()
-                ->whereMonth("transactions.created_at",$this->month)
                 ->whereYear("transactions.created_at",$this->year);
     }
 

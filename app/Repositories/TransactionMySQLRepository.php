@@ -1,10 +1,12 @@
 <?php
 namespace App\Repositories;
 
+use App\Exports\TransactionExportTrait;
 use App\Models\Transaction;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class TransactionMySQLRepository implements  TransactionRepository{
+    use TransactionExportTrait;
 
     public function create(array $attributes): ?Transaction
     {
@@ -45,4 +47,15 @@ class TransactionMySQLRepository implements  TransactionRepository{
         return Transaction::upsert($transactions,["unique_id"]);
     }
 
+    public function getTransactionsForExport(string $type, int $month, int $year): Collection
+    {
+        switch ($type){
+            case "monthly":
+                return $this->getExportTransactionBaseQuery()->whereMonth("transactions.created_at",'=',$month)->whereYear("transactions.created_at",'=',$year)->get();
+            case "yearly":
+                return $this->getExportTransactionBaseQuery()->whereYear("transactions.created_at",'=',$year)->get();
+            default:
+                return $this->getExportTransactionBaseQuery()->get();
+        }
+    }
 }

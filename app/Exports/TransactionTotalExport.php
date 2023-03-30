@@ -16,7 +16,7 @@ class TransactionTotalExport implements FromQuery,ShouldAutoSize,WithHeadings,Wi
 
     public function query()
     {
-        return $this->getBaseQuery();
+        return $this->getExportTransactionBaseQuery();
     }
 
     public function headings(): array

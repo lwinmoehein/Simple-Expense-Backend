@@ -22,7 +22,7 @@ class TransactionMonthExport implements FromQuery,ShouldAutoSize,WithHeadings,Wi
 
     public function query()
     {
-        return $this->getBaseQuery()
+        return $this->getExportTransactionBaseQuery()
                 ->whereMonth("transactions.created_at",$this->month)
                 ->whereYear("transactions.created_at",$this->year);
     }

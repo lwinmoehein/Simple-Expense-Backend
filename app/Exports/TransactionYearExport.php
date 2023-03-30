@@ -20,7 +20,7 @@ class TransactionYearExport implements FromQuery,ShouldAutoSize,WithHeadings,Wit
 
     public function query()
     {
-        return $this->getBaseQuery()
+        return $this->getExportTransactionBaseQuery()
                 ->whereYear("transactions.created_at",$this->year);
     }
 

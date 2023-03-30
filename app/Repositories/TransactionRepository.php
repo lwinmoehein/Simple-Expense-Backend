@@ -2,7 +2,7 @@
 namespace  App\Repositories;
 
 use App\Models\Transaction;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 interface TransactionRepository
 {
@@ -12,4 +12,5 @@ interface TransactionRepository
     public function getAll();
     public function delete($id);
     public function getAllDeleted();
+    public function getTransactionsForExport(string $type,int $month,int $year):Collection;
 }

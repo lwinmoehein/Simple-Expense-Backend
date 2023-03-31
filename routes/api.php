@@ -47,4 +47,5 @@ Route::get('unauthenticated',function(){
 })->name('unauthenticated');
 
 Route::get('/get-access-token/{googleIdToken}', [AuthController::class, 'getAccessToken']);
-Route::post('/reporting', [ReportController::class, 'exportPDF']);
+Route::post('/reporting/pdf', [ReportController::class, 'exportPDF']);
+Route::post('/reporting/excel', [ReportController::class, 'exportExcel']);

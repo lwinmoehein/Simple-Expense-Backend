@@ -27,7 +27,7 @@ class ReportController extends Controller
         $this->transactionRepository = $transactionRepository;
     }
 
-    public function exportExcel(GenerateReport  $rpequest){
+    public function exportExcel(GenerateReport  $request){
         return $this->reportService->generateExcelFile($request->type,$request->month,$request->year);
     }
 

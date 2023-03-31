@@ -40,12 +40,12 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/users/profile', [AuthController::class, 'updateProfileImage']);
     Route::get('/users', [AuthController::class, 'get']);
 
-
+    Route::post('/reporting/pdf', [ReportController::class, 'exportPDF']);
+    Route::post('/reporting/excel', [ReportController::class, 'exportExcel']);
 });
+
 Route::get('unauthenticated',function(){
     return response()->json(["error"=>"You are not allowed to access this."],403);
 })->name('unauthenticated');
 
 Route::get('/get-access-token/{googleIdToken}', [AuthController::class, 'getAccessToken']);
-Route::post('/reporting/pdf', [ReportController::class, 'exportPDF']);
-Route::post('/reporting/excel', [ReportController::class, 'exportExcel']);

@@ -42,8 +42,6 @@ class ObjectVersionController extends ApiController
         }catch (\Exception $e){
             return $this->respondError("Cannot get changed objects.");
         }
-
-        return $this->respondError("Cannot get changed objects.");
     }
 
     public function getChangedCategories(GetChangeObjects $request){
@@ -65,8 +63,6 @@ class ObjectVersionController extends ApiController
         }catch (\Exception $e){
             return $this->respondError("Cannot get changed objects.");
         }
-
-        return $this->respondError("Cannot get changed objects.");
     }
 
     public function storeBatch(StoreBatchObjects $request){

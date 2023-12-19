@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    steps:
       - name: Deploy master branch to EC2
         uses: appleboy/ssh-action@master
         with:

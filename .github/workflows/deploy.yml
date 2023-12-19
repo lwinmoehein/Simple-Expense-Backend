@@ -22,7 +22,7 @@ jobs:
           script: |
             cd /var/www/X-Money-Tracker-Backend &&
             git checkout master &&
-            git pull "$REPO_URL" master &&
+            git pull "${{ secrets.REPO_URL }}" master &&
             composer install &&
             yes | php artisan migrate &&
             php artisan optimize

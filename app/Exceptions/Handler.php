@@ -33,5 +33,8 @@ class Handler extends ExceptionHandler
     public function register()
     {
         //
+        $this->renderable(function (InvalidOrderException $e, Request $request) {
+            return response()->json(['message'=>'Oops! Something went wrong.']);
+        });
     }
 }

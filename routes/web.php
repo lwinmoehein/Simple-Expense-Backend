@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pdf');
+    return response()->json(['message'=>'Simple-Expense API is online.']);
 })->name('home');

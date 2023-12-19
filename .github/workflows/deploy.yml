@@ -8,11 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      USERNAME: ${{ secrets.G_USER_NAME }}
-      PASSWORD: ${{ secrets.G_TOKEN }}
-      REPO_URL: https://${USERNAME}:${PASSWORD}@github.com/lwinmoehein/X-Money-Tracker-Backend
-
 
     steps:
       - name: Checkout code

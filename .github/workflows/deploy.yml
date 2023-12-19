@@ -8,24 +8,16 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Configure Git
-        run: |
-            git config --global user.email ${{ secrets.G_EMAIL }}
-            git config --global user.name ${{ secrets.G_USER_NAME}}
-            git config --global credential.helper '!f() { sleep 1; echo "password=$G_TOKEN"; }; f'
-
-      - name: Deploy dev branch to hostinger vps
+      - name: Deploy master branch to EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_PRIVATE_KEY }}
           script: |
+            git config --global user.email ${{ secrets.G_EMAIL }} &&
+            git config --global user.name ${{ secrets.G_USER_NAME}} &&
+            git config --global credential.helper '!f() { sleep 1; echo "password=$G_TOKEN"; }; f' &&
             cd /var/www/X-Money-Tracker-Backend &&
             git checkout master &&
             git pull origin master &&

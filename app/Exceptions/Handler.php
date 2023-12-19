@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Mockery\Exception\InvalidOrderException;
 
 class Handler extends ExceptionHandler
 {

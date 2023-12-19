@@ -8,6 +8,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      USERNAME: ${{ secrets.G_USER_NAME }}
+      PASSWORD: ${{ secrets.G_PASSWORD }}
+      REPO_URL: https://${USERNAME}:${PASSWORD}@github.com/lwinmoehein/X-Money-Tracker-Backend.git
+
 
     steps:
       - name: Checkout code
@@ -28,7 +33,7 @@ jobs:
           script: |
             cd /var/www/X-Money-Tracker-Backend &&
             git checkout master &&
-            git pull origin master &&
+            git pull  ${REPO_URL}  master &&
             composer install &&
             yes | php artisan migrate &&
             php artisan optimize

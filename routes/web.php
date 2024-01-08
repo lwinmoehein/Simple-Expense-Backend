@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return response()->json(['message'=>'Simple-Expense API is online.']);
+    return response()->json(['message'=>'Simple Expense API is online.Since I\'m just a broke ass solo dev, I can\'t reward any money for you if you find a vulnerability.But I will be very happy to listen about it.If you care enough , lmhdadada@gmail.com is my email.' ]);
 })->name('home');
 

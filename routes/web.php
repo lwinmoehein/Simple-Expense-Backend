@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return response()->json(['message'=>'Simple-Expense API is online.']);
 })->name('home');
+
+Route::get('/pdf', [\App\Http\Controllers\ReportController::class,'exportPDF'])->name('home');

@@ -27,18 +27,28 @@ class ReportController extends Controller
         $this->transactionRepository = $transactionRepository;
     }
 
-    public function exportExcel(GenerateReport  $request){
+    public function exportExcel(Request  $request){
+        $type="mothly";
+        $month="03";
+        $year="2023";
         return $this->reportService->generateExcelFile($request->type,$request->month,$request->year);
     }
 
-    public function exportPDF(GenerateReport  $request) {
+    public function exportPDF(Request  $request) {
         // Set the content type to PDF
-        $transactions = $this->transactionRepository->getTransactionsForExport($request->type,$request->month,$request->year);
+        $type="mothly";
+        $month="03";
+        $year="2023";
+        $transactions = $this->transactionRepository->getTransactionsForExport($type,$month,$year);
+        //dd($transactions);
+        $transactions=Transaction::all();
 
         $headers = [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="example.pdf"',
         ];
+
+
 
         $html = view('pdf',compact('transactions'))->render();
         // Generate the PDF using the mPDF library
@@ -46,7 +56,7 @@ class ReportController extends Controller
         $mpdf->autoScriptToLang = true;
         $mpdf->autoLangToFont = true;
         $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY, true, false);
-        $mpdf->Output();
+
 
         // Return the PDF as a response
         return Response::make($mpdf->Output(), 200, $headers);

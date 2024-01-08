@@ -31,6 +31,7 @@ class TransactionMonthExport implements FromQuery,ShouldAutoSize,WithHeadings,Wi
     {
        return [
            'ခေါင်းစဥ်',
+           'အမျိုးအစား',
            'ပမာဏ',
            'မှတ်စု',
            'နေ့ရက်'
@@ -43,7 +44,8 @@ class TransactionMonthExport implements FromQuery,ShouldAutoSize,WithHeadings,Wi
             'A1' => ['font' => ['bold' => true]],
             'B1' => ['font' => ['bold' => true]],
             'C1' => ['font' => ['bold' => true]],
-            'D1' => ['font' => ['bold' => true]]
+            'D1' => ['font' => ['bold' => true]],
+            'E1' => ['font' => ['bold' => true]]
         ];
     }
 }

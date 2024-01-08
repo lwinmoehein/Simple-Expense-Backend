@@ -26,9 +26,8 @@ class GenerateReport extends FormRequest
         return [
             //
             'type'=>'string|max:10|required',
-            'day'=>'integer',
-            'month'=>'integer',
-            'year'=>'integer'
+            'start'=>'string|required|max:30',
+            'end'=>'string|required|max:30'
         ];
     }
 }

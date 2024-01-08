@@ -20,9 +20,10 @@
     </tr>
     </thead>
     <tbody>
+
     @foreach($transactions as $transaction)
         <tr>
-           <td style="text-align: center">{{$transaction->category}}</td>
+           <td style="text-align: center">{{$transaction->category->name}}</td>
             <td style="text-align: center">
                 @if($transaction->type==1)
                     <span style="color: green">၀င်ငွေ</span>

@@ -29,7 +29,7 @@ class ReportService {
     public function getPDFObject(User $user,$start,$end):Mpdf{
         $transactions = $this->transactionRepository->getTransactionsForExport($user->google_user_id,$start,$end);
 
-        $html = view('pdf',compact('transactions'))->render();
+        $html = view('pdf',compact('transactions','start','end'))->render();
         $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4']);
         $mpdf->autoScriptToLang = true;
         $mpdf->autoLangToFont = true;

@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransactionMonthExport;
+use App\Http\Requests\GenerateReport;
 use App\Models\Transaction;
 use App\Repositories\TransactionRepository;
 use App\Services\ReportService;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ReportController extends Controller
 {
@@ -18,48 +21,23 @@ class ReportController extends Controller
     private $transactionRepository;
 
 
-    public function __construct(Excel $excel,TransactionRepository  $transactionRepository)
+    public function __construct(TransactionRepository  $transactionRepository)
     {
-        $this->reportService = new ReportService($excel);
+        $this->reportService = new ReportService($transactionRepository);
         $this->transactionRepository = $transactionRepository;
     }
 
-    public function exportExcel(Request  $request){
-        $type="mothly";
-        $month="03";
-        $year="2023";
-        $fileName =Str::slug(auth()->user()->name)."_".$type."_transactions_". Carbon::now()->timestamp.".xlsx";
+    public function exportExcel(GenerateReport  $request){
+        $fileName = $this->reportService->getExportFileName($request->start,$request->end,"xlsx");
 
-        return  $this->reportService->generateExcelFile($month,$year);
-
-        //return $excelFile->download($fileName,null,["Content-Disposition"=>'attachment; filename="' .$fileName . '"']);
+        return Excel::download($this->reportService->getExcelExportObject(Auth::user(),$request->start,$request->end), $fileName);
     }
 
-    public function exportPDF(Request  $request) {
-        // Set the content type to PDF
-        $type="mothly";
-        $month="03";
-        $year="2023";
-        $transactions = $this->transactionRepository->getTransactionsForExport($type,$month,$year);
-        //dd($transactions);
-        $transactions=Transaction::all();
-        $fileName =Str::slug(auth()->user()->name)."_transactions_". Carbon::now()->timestamp.".pdf";
+    public function exportPDF(GenerateReport  $request) {
+        $fileName = $this->reportService->getExportFileName($request->start,$request->end);
 
+        $mpdf = $this->reportService->getPDFObject(Auth::user(),$request->start,$request->end);
 
-
-
-        $html = view('pdf',compact('transactions'))->render();
-        // Generate the PDF using the mPDF library
-        $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4']);
-        $mpdf->autoScriptToLang = true;
-        $mpdf->autoLangToFont = true;
-        $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY, true, false);
-
-
-//        return response($mpdf->Output($fileName))
-//            ->header('Content-Type', 'application/pdf')
-//            ->header('Content-Disposition', 'attachment; filename=' . $fileName );
-        // Return the PDF as a response
-        return Response::make($mpdf->Output($fileName,"D"),200,["Content-Disposition"=>'attachment; filename="' .$fileName . '"',"test"=>"fuck"]);
+        return Response::make($mpdf->Output($fileName,"D"));
     }
 }

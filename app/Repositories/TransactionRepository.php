@@ -12,5 +12,5 @@ interface TransactionRepository
     public function getAll();
     public function delete($id);
     public function getAllDeleted();
-    public function getTransactionsForExport(string $type,int $month,int $year):Collection;
+    public function getTransactionsForExport(string $userId,string $start,string $end):Collection;
 }

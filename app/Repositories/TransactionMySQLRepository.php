@@ -15,8 +15,6 @@ class TransactionMySQLRepository implements  TransactionRepository{
         }catch (\Exception $e){
             return null;
         }
-
-        return null;
     }
 
     public function getAll()
@@ -47,15 +45,10 @@ class TransactionMySQLRepository implements  TransactionRepository{
         return Transaction::upsert($transactions,["unique_id"]);
     }
 
-    public function getTransactionsForExport(string $type, int $month, int $year): Collection
+    public function getTransactionsForExport(string $userId, string $start, string $end): Collection
     {
-        switch ($type){
-            case "monthly":
-                return $this->getExportTransactionBaseQuery()->whereMonth("transactions.created_at",'=',$month)->whereYear("transactions.created_at",'=',$year)->get();
-            case "yearly":
-                return $this->getExportTransactionBaseQuery()->whereYear("transactions.created_at",'=',$year)->get();
-            default:
-                return $this->getExportTransactionBaseQuery()->get();
-        }
+        return $this->getExportTransactionBaseQuery()->where("transactions.user_id","=",$userId)
+            ->whereDate("transactions.created_at", ">=", $start)
+            ->whereDate("transactions.created_at", "<=", $end)->get();
     }
 }

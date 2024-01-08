@@ -12,19 +12,25 @@ class TransactionMonthExport implements FromQuery,ShouldAutoSize,WithHeadings,Wi
 {
     use Exportable,TransactionExportTrait;
 
-    protected $month;
-    protected $year;
+    protected string $start;
+    protected string $end;
+    protected string $userId;
 
-    public function __construct(int $month,int $year){
-        $this->month = $month;
-        $this->year = $year;
+    public function __construct(string $userId,string $start,string $end){
+        $this->userId = $userId;
+        $this->start = $start;
+        $this->end = $end;
     }
 
     public function query()
     {
         return $this->getExportTransactionBaseQuery()
-                ->whereMonth("transactions.created_at",$this->month)
-                ->whereYear("transactions.created_at",$this->year);
+            ->where("transactions.user_id","=",$this->userId)
+            ->whereDate("transactions.created_at", ">=", $this->start)
+            ->whereDate("transactions.created_at", "<=", $this->end);
+    }
+    public function collection(){
+
     }
 
     public function headings(): array

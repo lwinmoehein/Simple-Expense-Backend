@@ -24,8 +24,6 @@ class GenerateReport extends FormRequest
     public function rules()
     {
         return [
-            //
-            'type'=>'string|max:10|required',
             'start'=>'string|required|max:30',
             'end'=>'string|required|max:30'
         ];

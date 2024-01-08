@@ -28,9 +28,11 @@ class ReportController extends Controller
         $type="mothly";
         $month="03";
         $year="2023";
-        $binaryFile =  $this->reportService->generateExcelFile($request->type,$request->month,$request->year);
+        $fileName =Str::slug(auth()->user()->name)."_".$type."_transactions_". Carbon::now()->timestamp.".xlsx";
 
-        return $binaryFile;
+        return  $this->reportService->generateExcelFile($month,$year);
+
+        //return $excelFile->download($fileName,null,["Content-Disposition"=>'attachment; filename="' .$fileName . '"']);
     }
 
     public function exportPDF(Request  $request) {
@@ -41,7 +43,7 @@ class ReportController extends Controller
         $transactions = $this->transactionRepository->getTransactionsForExport($type,$month,$year);
         //dd($transactions);
         $transactions=Transaction::all();
-        $fileName =Str::slug(auth()->user()->name)."_".$type."_transactions_". Carbon::now()->timestamp.".pdf";
+        $fileName =Str::slug(auth()->user()->name)."_transactions_". Carbon::now()->timestamp.".pdf";
 
 
 
@@ -54,7 +56,10 @@ class ReportController extends Controller
         $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY, true, false);
 
 
+//        return response($mpdf->Output($fileName))
+//            ->header('Content-Type', 'application/pdf')
+//            ->header('Content-Disposition', 'attachment; filename=' . $fileName );
         // Return the PDF as a response
-        return Response::make($mpdf->Output($fileName,"I"), 200);
+        return Response::make($mpdf->Output($fileName,"D"),200,["Content-Disposition"=>'attachment; filename="' .$fileName . '"',"test"=>"fuck"]);
     }
 }

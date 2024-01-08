@@ -6,6 +6,7 @@ use App\Exports\TransactionMonthExport;
 use App\Exports\TransactionTotalExport;
 use App\Exports\TransactionYearExport;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Excel;
 use Dompdf\Options;
 
@@ -17,7 +18,7 @@ class ReportService {
     }
 
     public function generateExcelFile($type,$month,$year){
-        $fileName ="lwin_".$type."_transactions_". Carbon::now()->timestamp.".xlsx";
+        $fileName =Str::slug(auth()->user()->name)."_".$type."_transactions_". Carbon::now()->timestamp.".xlsx";
 
          switch ($type){
             case "monthly":

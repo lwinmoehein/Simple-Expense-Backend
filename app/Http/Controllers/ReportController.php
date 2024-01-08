@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\TransactionMonthExport;
-use App\Http\Requests\GenerateReport;
 use App\Models\Transaction;
 use App\Repositories\TransactionRepository;
 use App\Services\ReportService;
-use Dompdf\Dompdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Excel;
-use Illuminate\Support\Facades\View;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ReportController extends Controller
 {
@@ -31,7 +28,9 @@ class ReportController extends Controller
         $type="mothly";
         $month="03";
         $year="2023";
-        return $this->reportService->generateExcelFile($request->type,$request->month,$request->year);
+        $binaryFile =  $this->reportService->generateExcelFile($request->type,$request->month,$request->year);
+
+        return $binaryFile;
     }
 
     public function exportPDF(Request  $request) {
@@ -42,11 +41,8 @@ class ReportController extends Controller
         $transactions = $this->transactionRepository->getTransactionsForExport($type,$month,$year);
         //dd($transactions);
         $transactions=Transaction::all();
+        $fileName =Str::slug(auth()->user()->name)."_".$type."_transactions_". Carbon::now()->timestamp.".pdf";
 
-        $headers = [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="example.pdf"',
-        ];
 
 
 
@@ -59,6 +55,6 @@ class ReportController extends Controller
 
 
         // Return the PDF as a response
-        return Response::make($mpdf->Output(), 200, $headers);
+        return Response::make($mpdf->Output($fileName,"I"), 200);
     }
 }

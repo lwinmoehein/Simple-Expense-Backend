@@ -9,6 +9,7 @@ use App\Repositories\CategoryRepository;
 use App\Repositories\TransactionRepository;
 use App\Services\ObjectService;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 
 
 class ObjectVersionController extends ApiController
@@ -66,16 +67,24 @@ class ObjectVersionController extends ApiController
     }
 
     public function storeBatch(StoreBatchObjects $request){
-            $objects =  array_map(function($obj){
+        try {
+            $objects = array_map(function($obj) {
                 $obj['user_id'] = auth()->user()->google_user_id;
+
+                // Map timestamps to Laravel's format, handling null values
+                $obj['created_at'] = isset($obj['created_at']) ? Carbon::createFromTimestampMs($obj['created_at'])->format('Y-m-d H:i:s') : null;
+                $obj['updated_at'] = isset($obj['updated_at']) ? Carbon::createFromTimestampMs($obj['updated_at'])->format('Y-m-d H:i:s') : null;
+                $obj['deleted_at'] = isset($obj['deleted_at']) ? Carbon::createFromTimestampMs($obj['deleted_at'])->format('Y-m-d H:i:s') : null;
+
                 return $obj;
-            },$request->objects);
+            }, $request->objects);
+
 
             $isObjectsStored = $this->objectService->storeBatchObjects($request->table_name,$objects);
             if($isObjectsStored) return $this->respondNoContent();
-//        }catch (\Exception $e){
-//            return $this->respondError("Cannot store objects.");
-//        }
+        }catch (\Exception $e){
+            return $this->respondError("Cannot store objects.");
+        }
 
         return $this->respondError("Cannot store objects.");
     }

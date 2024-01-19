@@ -38,9 +38,9 @@ class  ObjectService {
     public function getToUpdateClientObjects($table_name,array $versions):Collection{
         $allObjects = $this->getAllObjectsByTable($table_name);
 
-        return $allObjects->filter(function ($category) use ($versions) {
+        return $allObjects->filter(function ($item) use ($versions) {
             foreach ($versions as $v){
-                if($v["unique_id"]==$category->unique_id && ($category->version==$v['version'] && Carbon::parse($category->updated_at)!=Carbon::parse($v['updated_at'])) || $category->version>$v['version']){
+                if($v["unique_id"]==$item->unique_id &&  $item->version>$v['version']){
                     return true;
                 }
             }

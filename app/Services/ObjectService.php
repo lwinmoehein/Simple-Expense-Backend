@@ -37,10 +37,13 @@ class  ObjectService {
 
     public function getToUpdateClientObjects($table_name,array $versions):Collection{
         $allObjects = $this->getAllObjectsByTable($table_name);
+        $allClientObjectIds = array_map(function($obj) {
+            return $obj["unique_id"];
+        }, $versions);
 
-        return $allObjects->filter(function ($item) use ($versions) {
+        return $allObjects->filter(function ($item) use ($versions,$allClientObjectIds) {
             foreach ($versions as $v){
-                if($v["unique_id"]==$item->unique_id &&  $item->version>$v['version']){
+                if(!in_array($item->unique_id,$allClientObjectIds) || ($v["unique_id"]==$item->unique_id &&  $item->version>$v['version'] && $item->deleted_at==null)){
                     return true;
                 }
             }

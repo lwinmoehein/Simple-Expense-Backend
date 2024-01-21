@@ -43,11 +43,15 @@ class  ObjectService {
 
         return $allObjects->filter(function ($item) use ($versions,$allClientObjectIds) {
             foreach ($versions as $v){
-                if(!in_array($item->unique_id,$allClientObjectIds) || ($v["unique_id"]==$item->unique_id &&  $item->version>$v['version'] && $item->deleted_at==null)){
+                $serverVersionUpdatedAt = Carbon::createFromFormat("Y-m-d H:i:s", $item->updated_at);
+                $clientVersionUpdatedAt = Carbon::createFromTimestamp($v['updated_at']);
+
+                if(($v["unique_id"]==$item->unique_id &&  ($item->version>$v['version'] || ($item->version==$v['version'] && $serverVersionUpdatedAt->gt($clientVersionUpdatedAt) )) && $item->deleted_at==null)){
                     return true;
                 }
             }
             return false;
+
         })->values();
     }
     public function getNewObjectIds($table_name,array $versions): array

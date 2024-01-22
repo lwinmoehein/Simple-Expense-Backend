@@ -40,7 +40,7 @@ class CategorySeeder extends Seeder
                 'unique_id'=>'cat_'.Str::slug($categoryName),
                 'version'=>0,
                 'is_default'=>true,
-                'transaction_type'=>1,
+                'transaction_type'=>2,
                 'created_at'=>now(),
                 'updated_at'=>now()
             ]);
@@ -51,7 +51,7 @@ class CategorySeeder extends Seeder
                 'unique_id'=>'cat_'.Str::slug($categoryName),
                 'version'=>0,
                 'is_default'=>true,
-                'transaction_type'=>2,
+                'transaction_type'=>1,
                 'created_at'=>now(),
                 'updated_at'=>now()
             ]);

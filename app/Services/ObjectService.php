@@ -21,7 +21,7 @@ class  ObjectService {
     }
 
     public function getNewServerObjects($table_name,array $versions):Collection{
-        if(count($versions)==0){
+        if(count($versions)==0 && $table_name=='categories'){
             return Category::where('is_default',true)->get();
         }
 

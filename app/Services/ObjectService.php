@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TransactionRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,8 +21,11 @@ class  ObjectService {
     }
 
     public function getNewServerObjects($table_name,array $versions):Collection{
-        $allObjects = $this->getAllObjectsByTable($table_name);
+        if(count($versions)==0){
+            return Category::where('is_default',true)->get();
+        }
 
+        $allObjects = $this->getAllObjectsByTable($table_name);
 
         return $allObjects->filter(function ($category) use ($versions) {
             if(in_array($category->unique_id,array_column($versions,"unique_id"))){

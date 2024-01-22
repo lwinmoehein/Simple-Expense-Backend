@@ -21,7 +21,7 @@ class Category extends Model
     ];
 
     protected $fillable = [
-        'unique_id','name','photo_url','version','transaction_type','deleted_at','created_at','updated_at','user_id'
+        'unique_id','name','photo_url','version','transaction_type','deleted_at','created_at','updated_at','user_id','is_default'
     ];
 
     public function transactions(){

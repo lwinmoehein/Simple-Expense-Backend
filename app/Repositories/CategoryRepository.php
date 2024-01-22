@@ -2,6 +2,7 @@
 namespace  App\Repositories;
 
 use App\Models\Category;
+use Illuminate\Support\Collection;
 
 interface CategoryRepository
 {

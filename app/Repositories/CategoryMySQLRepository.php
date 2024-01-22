@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use Illuminate\Support\Collection;
 
 class CategoryMySQLRepository implements CategoryRepository {
 
@@ -50,4 +51,5 @@ class CategoryMySQLRepository implements CategoryRepository {
     {
        return Category::upsert($categories,['unique_id']);
     }
+
 }

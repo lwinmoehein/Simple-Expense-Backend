@@ -13,7 +13,7 @@ trait TransactionExportTrait{
             ->whereNull('categories.deleted_at')
             ->select(
                 'categories.name as category',
-                DB::raw("CASE categories.transaction_type WHEN 1 THEN '၀င်ငွေ' WHEN 2 THEN 'ထွက်ငွေ' ELSE '-' END as type"),
+                DB::raw("CASE categories.transaction_type WHEN 1 THEN 'Income' WHEN 2 THEN 'Expense' ELSE '-' END as type"),
                 'transactions.amount as amount',
                 'transactions.note as note',
                 'transactions.created_at as created_at'

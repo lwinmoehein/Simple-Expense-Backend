@@ -36,11 +36,11 @@ class TransactionMonthExport implements FromQuery,ShouldAutoSize,WithHeadings,Wi
     public function headings(): array
     {
        return [
-           'ခေါင်းစဥ်',
-           'အမျိုးအစား',
-           'ပမာဏ',
-           'မှတ်စု',
-           'နေ့ရက်'
+           'Name',
+           'Category',
+           'Amount',
+           'Note',
+           'Date'
        ];
     }
 

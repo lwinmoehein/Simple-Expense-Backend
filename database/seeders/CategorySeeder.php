@@ -17,27 +17,28 @@ class CategorySeeder extends Seeder
     {
         //
         $expenseCategoryNames = [
-            'Food & Drinks',
-            'Shopping',
-            'Housing',
-            'Transportation',
-            'Vehicles',
-            'Life & Entertainment',
-            'IT Devices',
-            'Health',
-            'Donation'
+            ['name'=>'Food & Drinks','icon_name'=>'food_and_drink'],
+            ['name'=>'Shopping','icon_name'=>'shopping'],
+            ['name'=>'Housing','icon_name'=>'housing'],
+            ['name'=>'Travel','icon_name'=>'travel'],
+            ['name'=>'Vehicles','icon_name'=>'truck'],
+            ['name'=>'Life & Entertainment','icon_name'=>'life_and_entertainment'],
+            ['name'=>'IT Devices','icon_name'=>'it_devices'],
+            ['name'=>'Health','icon_name'=>'health'],
+            ['name'=>'Donation','icon_name'=>'donation']
         ];
         $incomeCategoryNames = [
-            'Allowance',
-            'Salary',
-            'Bonus',
-            'Other'
+            ['name'=>'Allowance','icon_name'=>'allowance'],
+            ['name'=>'Salary','icon_name'=>'salary'],
+            ['name'=>'Bonus','icon_name'=>'bonus'],
+            ['name'=>'Other','icon_name'=>'other']
         ];
 
         foreach ($expenseCategoryNames as $categoryName){
             Category::create([
-                'name'=>$categoryName,
-                'unique_id'=>'cat_'.Str::slug($categoryName),
+                'name'=>$categoryName['name'],
+                'icon_name'=>$categoryName['icon_name'],
+                'unique_id'=>'cat_'.Str::slug($categoryName['name']),
                 'version'=>0,
                 'is_default'=>true,
                 'transaction_type'=>2,
@@ -47,8 +48,9 @@ class CategorySeeder extends Seeder
         }
         foreach ($incomeCategoryNames as $categoryName){
             Category::create([
-                'name'=>$categoryName,
-                'unique_id'=>'cat_'.Str::slug($categoryName),
+                'name'=>$categoryName['name'],
+                'icon_name'=>$categoryName['icon_name'],
+                'unique_id'=>'cat_'.Str::slug($categoryName['name']),
                 'version'=>0,
                 'is_default'=>true,
                 'transaction_type'=>1,

@@ -21,11 +21,12 @@ class CategorySeeder extends Seeder
             ['name'=>'Shopping','icon_name'=>'shopping'],
             ['name'=>'Housing','icon_name'=>'housing'],
             ['name'=>'Travel','icon_name'=>'travel'],
-            ['name'=>'Vehicles','icon_name'=>'truck'],
+            ['name'=>'Vehicles','icon_name'=>'vehicles'],
             ['name'=>'Life & Entertainment','icon_name'=>'life_and_entertainment'],
             ['name'=>'IT Devices','icon_name'=>'it_devices'],
             ['name'=>'Health','icon_name'=>'health'],
-            ['name'=>'Donation','icon_name'=>'donation']
+            ['name'=>'Donation','icon_name'=>'donation'],
+            ['name'=>'Other','icon_name'=>'other']
         ];
         $incomeCategoryNames = [
             ['name'=>'Allowance','icon_name'=>'allowance'],
@@ -38,7 +39,7 @@ class CategorySeeder extends Seeder
             Category::create([
                 'name'=>$categoryName['name'],
                 'icon_name'=>$categoryName['icon_name'],
-                'unique_id'=>'cat_'.Str::slug($categoryName['name']),
+                'unique_id'=>'cat_expense'.Str::slug($categoryName['name']),
                 'version'=>0,
                 'is_default'=>true,
                 'transaction_type'=>2,
@@ -50,7 +51,7 @@ class CategorySeeder extends Seeder
             Category::create([
                 'name'=>$categoryName['name'],
                 'icon_name'=>$categoryName['icon_name'],
-                'unique_id'=>'cat_'.Str::slug($categoryName['name']),
+                'unique_id'=>'cat_income_'.Str::slug($categoryName['name']),
                 'version'=>0,
                 'is_default'=>true,
                 'transaction_type'=>1,

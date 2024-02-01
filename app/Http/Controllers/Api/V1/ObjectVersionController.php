@@ -7,8 +7,10 @@ use App\Http\Requests\GetChangeObjects;
 use App\Http\Requests\StoreBatchObjects;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TransactionRepository;
+use App\Services\CategoryService;
 use App\Services\ObjectService;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 
 class ObjectVersionController extends ApiController
@@ -18,17 +20,18 @@ class ObjectVersionController extends ApiController
 
     public function __construct(
         CategoryRepository  $categoryRepository,
-        TransactionRepository $transactionRepository
+        TransactionRepository $transactionRepository,
+        CategoryService $categoryService
     )
     {
-        $this->objectService = new ObjectService($categoryRepository,$transactionRepository);
+        $this->objectService = new ObjectService($categoryRepository,$transactionRepository,$categoryService);
     }
     public function getChangedTransactions(GetChangeObjects $request){
         $versions = $request->versions;
         $TABLE_NAME="transactions";
 
         try {
-            $newServerObjects = $this->objectService->getNewServerObjects($TABLE_NAME,$versions);
+            $newServerObjects = $this->objectService->getNewServerObjects(Auth::user(),$TABLE_NAME,$versions);
             $newClientObjectIds= $this->objectService->getNewObjectIds($TABLE_NAME,$versions);
             $toUpdateClientObjects = $this->objectService->getToUpdateClientObjects($TABLE_NAME,$versions);
             $toUpdateServerObjects = $this->objectService->getToUpdateServerObjects($TABLE_NAME,$versions);
@@ -49,7 +52,7 @@ class ObjectVersionController extends ApiController
         $TABLE_NAME="categories";
 
         try {
-            $newServerObjects = $this->objectService->getNewServerObjects($TABLE_NAME,$versions);
+            $newServerObjects = $this->objectService->getNewServerObjects(Auth::user(),$TABLE_NAME,$versions);
             $newClientObjectIds= $this->objectService->getNewObjectIds($TABLE_NAME,$versions);
             $toUpdateClientObjects = $this->objectService->getToUpdateClientObjects($TABLE_NAME,$versions);
             $toUpdateServerObjects = $this->objectService->getToUpdateServerObjects($TABLE_NAME,$versions);

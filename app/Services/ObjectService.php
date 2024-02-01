@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Category;
+use App\Models\User;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TransactionRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,19 +13,25 @@ class  ObjectService {
     protected  $categoryRepository;
     protected $transactionRepository;
 
+    protected $categoryService;
+
     public function __construct(
         CategoryRepository  $categoryRepository,
-        TransactionRepository $transactionRepository
+        TransactionRepository $transactionRepository,
+        CategoryService $categoryService
     ){
         $this->categoryRepository = $categoryRepository;
         $this->transactionRepository = $transactionRepository;
+        $this->categoryService = $categoryService;
     }
 
-    public function getNewServerObjects($table_name,array $versions):Collection{
+    public function getNewServerObjects(User $user,$table_name,array $versions):Collection{
         $objects = new Collection();
 
         if(count($versions)==0 && $table_name=='categories'){
-            $objects= Category::where('is_default',true)->get();
+            return $this->categoryService->createAndGetUserCategories($user);
+           //$objects = Category::where('is_default',true)->get();
+           // $objects= Category::where('unique_id','helloworld')->get();
         }
 
         $allObjects = $this->getAllObjectsByTable($table_name);

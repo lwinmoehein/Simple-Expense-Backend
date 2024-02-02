@@ -37,7 +37,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('batch-objects', [ObjectVersionController::class,'storeBatch']);
 
     Route::patch('/users', [AuthController::class, 'update']);
-    Route::post('/users/profile', [AuthController::class, 'updateProfileImage']);
+    Route::post('/users/profile', [AuthController::class, 'update']);
     Route::get('/users', [AuthController::class, 'get']);
 
     Route::post('/reporting/pdf', [ReportController::class, 'exportPDF']);

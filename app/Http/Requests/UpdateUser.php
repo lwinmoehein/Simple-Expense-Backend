@@ -24,7 +24,7 @@ class UpdateUser extends FormRequest
     public function rules()
     {
         return [
-            'google_name'=>'string',
+            'currency'=>'string|max:10'
         ];
     }
 }

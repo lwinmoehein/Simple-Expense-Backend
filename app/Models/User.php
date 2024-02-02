@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password','google_user_id',
         'google_name','google_email','google_picture',
-        'google_email_verified_at'
+        'google_email_verified_at','currency'
     ];
 
     /**

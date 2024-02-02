@@ -21,11 +21,12 @@ class AuthController extends ApiController
             return $this->respondUnAuthenticated();
 
         try{
-            $token = $this->userService->getToken($googleIdToken);
-            if($token)
+            $user = $this->userService->getUser($googleIdToken);
+            if($user)
                 return $this->respondWithSuccess([
                     "data"=>[
-                        "token"=>$token
+                        "token"=>$user->createToken("access_token")->plainTextToken,
+                        "currency"=>$user->currency
                     ]
                 ]);
         }catch (\Exception $e){

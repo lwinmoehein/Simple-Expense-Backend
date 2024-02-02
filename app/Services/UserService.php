@@ -13,14 +13,14 @@ class  UserService {
        $this->userRepository = $userRepository;
    }
 
-   public function getToken($googleIdToken):?string{
+   public function getUser($googleIdToken):?User{
            $googleUser = \GoogleAuthentication::getUserInfo($googleIdToken);
 
            if(!$googleUser) return null;
 
            $existingUser = $this->userRepository->getByGoogleId($googleUser['sub']);
 
-           if($existingUser) return $existingUser->createToken("access_token")->plainTextToken;
+           if($existingUser) return $existingUser;
 
            if($googleUser){
                $user = User::create([
@@ -29,7 +29,7 @@ class  UserService {
                    "google_email"=>$googleUser['email'],
                    "google_picture"=>$googleUser['picture']
                ]);
-              return $user->createToken("access_token")->plainTextToken;
+              return $user;
            }
 
            return null;

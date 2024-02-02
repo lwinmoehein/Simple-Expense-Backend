@@ -38,7 +38,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::patch('/users', [AuthController::class, 'update']);
     Route::post('/users/profile', [AuthController::class, 'update']);
-    Route::get('/users', [AuthController::class, 'get']);
+    Route::get('/user', [AuthController::class, 'get']);
 
     Route::post('/reporting/pdf', [ReportController::class, 'exportPDF']);
     Route::post('/reporting/excel', [ReportController::class, 'exportExcel']);

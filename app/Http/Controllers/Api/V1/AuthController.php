@@ -53,9 +53,10 @@ class AuthController extends ApiController
     }
     public function get(){
         try{
+            $user = auth()->user();
                 return $this->respondWithSuccess([
                     "data"=>[
-                        "user"=>auth()->user()
+                        "currency"=>$user->currency
                     ]
                 ]);
         }catch (\Exception $e){

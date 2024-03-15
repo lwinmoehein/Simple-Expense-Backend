@@ -26,22 +26,14 @@ class  ObjectService {
     }
 
     public function getNewServerObjects(User $user,$table_name,array $versions):Collection{
-        $objects = new Collection();
-
-        if(count($versions)==0 && $table_name=='categories'){
-            return $this->categoryService->createAndGetUserCategories($user);
-           //$objects = Category::where('is_default',true)->get();
-           // $objects= Category::where('unique_id','helloworld')->get();
-        }
-
         $allObjects = $this->getAllObjectsByTable($table_name);
 
-        return $objects->concat($allObjects->filter(function ($category) use ($versions) {
+        return $allObjects->filter(function ($category) use ($versions) {
             if(in_array($category->unique_id,array_column($versions,"unique_id"))){
                 return false;
             }
             return true;
-        })->values());
+        })->values();
     }
     public function storeBatchObjects(string $tableName,array $objects):bool{
         return $this->storeObjectsByTableName($tableName,$objects);

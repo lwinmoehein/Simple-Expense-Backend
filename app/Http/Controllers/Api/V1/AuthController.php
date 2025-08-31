@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateUser;
 use App\Http\Requests\UpdateUserImage;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends ApiController
 {
@@ -29,7 +30,9 @@ class AuthController extends ApiController
                         "currency"=>$user->currency
                     ]
                 ]);
+            Log::error(json_encode($user));
         }catch (\Exception $e){
+          Log::error($e->getMessage());
           return $this->respondUnAuthenticated();
         }
 
